@@ -1,9 +1,9 @@
 /* ============================================================
    SWEET FLOUR CAMPAIGN ROADMAP — Design System
    Design Movement: Warm Artisan Editorial
-   Primary: Deep chocolate brown #3D1A0A (matches sweetflour.ca nav)
-   Accent: Caramel gold #C8813A
-   Background: Warm cream #FBF7F2
+   Primary: Chocolate brown #3D1A0A (sweetflour.ca nav bar)
+   Accent: Sky blue #A8DDE9 (sweetflour.ca announcement bar)
+   Background: White / very light cream
    Typography: Playfair Display (headings) + DM Sans (body)
    ============================================================ */
 
@@ -55,60 +55,66 @@
   --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'DM Mono', monospace;
 
-  /* Seasonal colors */
-  --color-seasonal-valentine: oklch(0.72 0.15 0);
-  --color-seasonal-easter: oklch(0.72 0.12 145);
-  --color-seasonal-mothers: oklch(0.75 0.13 340);
-  --color-seasonal-fathers: oklch(0.55 0.12 230);
-  --color-seasonal-summer: oklch(0.78 0.14 80);
-  --color-seasonal-halloween: oklch(0.65 0.18 40);
-  --color-seasonal-holiday: oklch(0.55 0.15 145);
-  --color-seasonal-bfcm: oklch(0.35 0.05 285);
-  --color-seasonal-thanksgiving: oklch(0.65 0.14 55);
-  --color-evergreen: oklch(0.52 0.10 200);
-  --color-corporate: oklch(0.42 0.08 255);
+  /* Brand colors */
+  --sf-brown: #3D1A0A;       /* nav bar */
+  --sf-sky: #A8DDE9;         /* announcement bar */
+  --sf-sky-dark: #5BB8CC;    /* darker sky for active states */
+  --sf-sky-light: #E4F5F9;   /* very light sky for backgrounds */
+
+  /* Seasonal colors — muted, professional */
+  --color-seasonal-valentine: oklch(0.62 0.14 0);
+  --color-seasonal-easter: oklch(0.62 0.11 145);
+  --color-seasonal-mothers: oklch(0.62 0.13 340);
+  --color-seasonal-fathers: oklch(0.45 0.10 230);
+  --color-seasonal-summer: oklch(0.68 0.12 80);
+  --color-seasonal-halloween: oklch(0.58 0.16 40);
+  --color-seasonal-holiday: oklch(0.45 0.13 145);
+  --color-seasonal-bfcm: oklch(0.30 0.04 285);
+  --color-seasonal-thanksgiving: oklch(0.55 0.12 55);
+  --color-evergreen: oklch(0.42 0.08 200);
+  --color-corporate: oklch(0.35 0.07 255);
 }
 
 :root {
   --radius: 0.5rem;
 
-  /* Sweet Flour Warm Artisan Palette */
-  --background: oklch(0.98 0.008 75);          /* warm cream #FBF7F2 */
-  --foreground: oklch(0.22 0.04 55);            /* deep chocolate #2C1A0E */
+  /* Sweet Flour Brand Palette — matches sweetflour.ca */
+  --background: oklch(1 0 0);                  /* white */
+  --foreground: oklch(0.20 0.05 42);           /* chocolate brown #3D1A0A */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.04 55);
+  --card-foreground: oklch(0.20 0.05 42);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.04 55);
-  --primary: oklch(0.28 0.07 42);              /* chocolate brown #3D1A0A */
-  --primary-foreground: oklch(0.97 0.01 75);   /* warm cream */
-  --secondary: oklch(0.94 0.015 75);           /* light cream */
-  --secondary-foreground: oklch(0.28 0.07 42);
-  --muted: oklch(0.95 0.01 75);
-  --muted-foreground: oklch(0.52 0.04 55);
-  --accent: oklch(0.65 0.12 55);              /* caramel gold #C8813A */
-  --accent-foreground: oklch(0.97 0.01 75);
+  --popover-foreground: oklch(0.20 0.05 42);
+  --primary: oklch(0.22 0.06 42);              /* chocolate brown #3D1A0A */
+  --primary-foreground: oklch(0.97 0 0);       /* white */
+  --secondary: oklch(0.93 0.04 210);           /* light sky blue */
+  --secondary-foreground: oklch(0.20 0.05 42);
+  --muted: oklch(0.96 0.01 210);               /* very light sky */
+  --muted-foreground: oklch(0.48 0.04 42);
+  --accent: oklch(0.82 0.07 210);              /* sky blue #A8DDE9 */
+  --accent-foreground: oklch(0.20 0.05 42);    /* dark text on sky */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.88 0.02 75);
-  --input: oklch(0.92 0.015 75);
-  --ring: oklch(0.65 0.12 55);
+  --border: oklch(0.90 0.02 210);              /* light sky border */
+  --input: oklch(0.94 0.02 210);
+  --ring: oklch(0.65 0.08 210);                /* sky blue ring */
 
-  /* Charts — warm palette */
-  --chart-1: oklch(0.65 0.12 55);   /* caramel */
-  --chart-2: oklch(0.28 0.07 42);   /* chocolate */
-  --chart-3: oklch(0.72 0.15 0);    /* rose */
-  --chart-4: oklch(0.55 0.10 200);  /* teal */
-  --chart-5: oklch(0.78 0.14 80);   /* gold */
+  /* Charts — brand palette */
+  --chart-1: oklch(0.82 0.07 210);   /* sky blue */
+  --chart-2: oklch(0.22 0.06 42);    /* chocolate */
+  --chart-3: oklch(0.62 0.14 0);     /* rose */
+  --chart-4: oklch(0.55 0.10 145);   /* green */
+  --chart-5: oklch(0.65 0.12 55);    /* caramel */
 
-  /* Sidebar */
-  --sidebar: oklch(0.25 0.06 42);             /* dark chocolate */
-  --sidebar-foreground: oklch(0.92 0.01 75);
-  --sidebar-primary: oklch(0.65 0.12 55);     /* caramel */
-  --sidebar-primary-foreground: oklch(0.97 0.01 75);
-  --sidebar-accent: oklch(0.32 0.07 42);
-  --sidebar-accent-foreground: oklch(0.92 0.01 75);
-  --sidebar-border: oklch(0.35 0.06 42);
-  --sidebar-ring: oklch(0.65 0.12 55);
+  /* Sidebar — chocolate brown matching website nav */
+  --sidebar: oklch(0.20 0.05 42);              /* #3D1A0A chocolate */
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.82 0.07 210);     /* sky blue active */
+  --sidebar-primary-foreground: oklch(0.20 0.05 42);
+  --sidebar-accent: oklch(0.28 0.06 42);       /* slightly lighter brown */
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.30 0.05 42);
+  --sidebar-ring: oklch(0.82 0.07 210);
 }
 
 @layer base {

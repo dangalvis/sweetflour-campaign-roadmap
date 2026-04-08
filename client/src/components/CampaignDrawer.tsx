@@ -1,9 +1,25 @@
 // CampaignDrawer — Slide-in detail panel for campaign details
-// Design: Warm Artisan Editorial
+// Design: Sweet Flour Brand — Chocolate Brown #3D1A0A + Sky Blue #A8DDE9
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, Target, DollarSign, Users, MapPin, Lightbulb, CheckSquare, BarChart2, TrendingUp, AlertCircle } from "lucide-react";
+import {
+  X, Calendar, Target, DollarSign, Users, MapPin,
+  Lightbulb, CheckSquare, BarChart2, TrendingUp, AlertCircle,
+  ShoppingBag, Palette, Circle, ArrowRight
+} from "lucide-react";
 import type { Campaign } from "@/lib/campaignData";
+
+const BRAND = {
+  brown: '#3D1A0A',
+  skyBlue: '#A8DDE9',
+  skyBlueBg: '#EEF9FC',
+  skyBlueBorder: '#E4F5F9',
+  cream: '#FBF7F2',
+  creamBg: '#F8FBFC',
+  caramel: '#C8813A',
+  muted: '#6B7280',
+  mutedLight: '#9CA3AF',
+};
 
 interface CampaignDrawerProps {
   campaign: Campaign | null;
@@ -15,8 +31,8 @@ function Section({ title, icon, children }: { title: string; icon: React.ReactNo
   return (
     <div className="mb-6">
       <div className="flex items-center gap-2 mb-3">
-        <span style={{ color: 'oklch(0.65 0.12 55)' }}>{icon}</span>
-        <h3 className="text-sm font-semibold" style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>
+        <span style={{ color: BRAND.brown }}>{icon}</span>
+        <h3 className="text-sm font-semibold" style={{ color: BRAND.brown, fontFamily: "'Playfair Display', serif" }}>
           {title}
         </h3>
       </div>
@@ -27,32 +43,45 @@ function Section({ title, icon, children }: { title: string; icon: React.ReactNo
 
 function MetricCard({ label, value, sub, color }: { label: string; value: string; sub?: string; color?: string }) {
   return (
-    <div className="rounded-lg p-3 border" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'oklch(0.99 0.004 75)' }}>
-      <div className="text-xs mb-1" style={{ color: 'oklch(0.55 0.04 55)' }}>{label}</div>
-      <div className="text-lg font-bold" style={{ color: color || 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>{value}</div>
-      {sub && <div className="text-xs mt-0.5" style={{ color: 'oklch(0.65 0.04 55)' }}>{sub}</div>}
+    <div
+      className="rounded-lg p-3 border"
+      style={{ borderColor: BRAND.skyBlueBorder, background: BRAND.creamBg }}
+    >
+      <div className="text-xs mb-1" style={{ color: BRAND.muted }}>{label}</div>
+      <div
+        className="text-lg font-bold"
+        style={{ color: color || BRAND.brown, fontFamily: "'Playfair Display', serif" }}
+      >
+        {value}
+      </div>
+      {sub && <div className="text-xs mt-0.5" style={{ color: BRAND.mutedLight }}>{sub}</div>}
     </div>
   );
 }
 
 function TaskItem({ task }: { task: Campaign['productionTasks'][0] }) {
   const ownerColors: Record<string, string> = {
-    design: 'oklch(0.65 0.12 285)',
-    media: 'oklch(0.55 0.12 200)',
-    client: 'oklch(0.65 0.12 55)',
-    production: 'oklch(0.55 0.15 145)',
+    design: '#7C3AED',
+    media: '#0369A1',
+    client: BRAND.caramel,
+    production: '#059669',
   };
-  const statusIcons: Record<string, string> = {
-    pending: '⏳',
-    'in-progress': '🔄',
-    done: '✅',
+  const statusDot: Record<string, string> = {
+    pending: BRAND.mutedLight,
+    'in-progress': '#F59E0B',
+    done: '#10B981',
   };
 
   return (
-    <div className="flex items-start gap-3 py-2.5 border-b last:border-0" style={{ borderColor: 'oklch(0.92 0.01 75)' }}>
-      <span className="text-sm mt-0.5">{statusIcons[task.status]}</span>
+    <div
+      className="flex items-start gap-3 py-2.5 border-b last:border-0"
+      style={{ borderColor: BRAND.skyBlueBorder }}
+    >
+      <span className="mt-1 flex-shrink-0">
+        <Circle size={8} fill={statusDot[task.status]} color={statusDot[task.status]} />
+      </span>
       <div className="flex-1 min-w-0">
-        <div className="text-sm" style={{ color: 'oklch(0.28 0.07 42)' }}>{task.task}</div>
+        <div className="text-sm" style={{ color: BRAND.brown }}>{task.task}</div>
         <div className="flex items-center gap-2 mt-1">
           <span
             className="text-xs px-2 py-0.5 rounded-full font-medium"
@@ -61,12 +90,12 @@ function TaskItem({ task }: { task: Campaign['productionTasks'][0] }) {
             {task.owner}
           </span>
           {task.dueWeeks > 0 && (
-            <span className="text-xs" style={{ color: 'oklch(0.55 0.04 55)' }}>
+            <span className="text-xs" style={{ color: BRAND.muted }}>
               {task.dueWeeks}w before launch
             </span>
           )}
           {task.dueWeeks === 0 && (
-            <span className="text-xs font-medium" style={{ color: 'oklch(0.55 0.15 27)' }}>
+            <span className="text-xs font-medium" style={{ color: '#DC2626' }}>
               Launch day
             </span>
           )}
@@ -88,7 +117,7 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40"
-            style={{ background: 'oklch(0.1 0.04 42 / 0.5)' }}
+            style={{ background: 'rgba(61,26,10,0.45)' }}
             onClick={onClose}
           />
         )}
@@ -106,18 +135,17 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
             style={{
               width: 480,
               background: 'white',
-              borderLeft: '1px solid oklch(0.88 0.02 75)',
+              borderLeft: `1px solid ${BRAND.skyBlueBorder}`,
             }}
           >
             {/* Header */}
             <div
               className="flex-shrink-0 px-6 py-5 relative overflow-hidden"
-              style={{ background: campaign.seasonalColor || 'oklch(0.28 0.07 42)' }}
+              style={{ background: campaign.seasonalColor || BRAND.brown }}
             >
               <div className="relative">
                 <div className="flex items-start justify-between">
                   <div className="flex-1 pr-8">
-                    <div className="text-3xl mb-2">{campaign.emoji}</div>
                     <h2
                       className="text-white text-xl font-semibold leading-tight"
                       style={{ fontFamily: "'Playfair Display', serif" }}
@@ -126,21 +154,25 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                     </h2>
                     <div className="flex items-center gap-2 mt-2 flex-wrap">
                       <span
-                        className="text-xs px-2.5 py-1 rounded-full font-medium"
+                        className="text-xs px-2.5 py-1 rounded-full font-medium capitalize"
                         style={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}
                       >
                         {campaign.type}
                       </span>
                       <span
                         className="text-xs px-2.5 py-1 rounded-full font-medium"
-                        style={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}
+                        style={{ background: 'rgba(168,221,233,0.3)', color: 'white' }}
                       >
-                        {campaign.channel === 'both' ? '📘🔍 Meta + Google' : campaign.channel === 'meta' ? '📘 Meta' : '🔍 Google'}
+                        {campaign.channel === 'both' ? 'Meta + Google' : campaign.channel === 'meta' ? 'Meta' : 'Google'}
                       </span>
                       <span
-                        className="text-xs px-2.5 py-1 rounded-full font-medium"
+                        className="text-xs px-2.5 py-1 rounded-full font-medium capitalize"
                         style={{
-                          background: campaign.priority === 'high' ? 'rgba(239,68,68,0.8)' : campaign.priority === 'medium' ? 'rgba(245,158,11,0.8)' : 'rgba(107,114,128,0.8)',
+                          background: campaign.priority === 'high'
+                            ? 'rgba(239,68,68,0.75)'
+                            : campaign.priority === 'medium'
+                            ? 'rgba(245,158,11,0.75)'
+                            : 'rgba(107,114,128,0.75)',
                           color: 'white',
                         }}
                       >
@@ -151,7 +183,11 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                   <button
                     onClick={(e) => { e.stopPropagation(); onClose(); }}
                     className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 flex-shrink-0 relative z-[60]"
-                    style={{ background: 'rgba(255,255,255,0.25)', color: 'white', border: '1.5px solid rgba(255,255,255,0.4)' }}
+                    style={{
+                      background: 'rgba(255,255,255,0.25)',
+                      color: 'white',
+                      border: '1.5px solid rgba(255,255,255,0.4)',
+                    }}
                   >
                     <X size={18} />
                   </button>
@@ -161,18 +197,19 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
 
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto px-6 py-5">
+
               {/* Dates */}
               <Section title="Campaign Dates" icon={<Calendar size={16} />}>
-                <div className="flex items-center gap-3 text-sm" style={{ color: 'oklch(0.35 0.04 55)' }}>
+                <div className="flex items-center gap-3 text-sm" style={{ color: BRAND.brown }}>
                   <span className="font-medium">{campaign.startDate}</span>
-                  <span style={{ color: 'oklch(0.65 0.04 55)' }}>→</span>
+                  <ArrowRight size={14} style={{ color: BRAND.caramel }} />
                   <span className="font-medium">{campaign.endDate}</span>
                 </div>
               </Section>
 
               {/* Goal */}
               <Section title="Campaign Goal" icon={<Target size={16} />}>
-                <p className="text-sm leading-relaxed" style={{ color: 'oklch(0.35 0.04 55)' }}>
+                <p className="text-sm leading-relaxed" style={{ color: '#4B3728' }}>
                   {campaign.goal}
                 </p>
               </Section>
@@ -181,24 +218,24 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
               <Section title="Audience & Location" icon={<Users size={16} />}>
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
-                    <Users size={14} className="mt-0.5 flex-shrink-0" style={{ color: 'oklch(0.65 0.04 55)' }} />
-                    <span className="text-sm" style={{ color: 'oklch(0.35 0.04 55)' }}>{campaign.targetAudience}</span>
+                    <Users size={14} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.muted }} />
+                    <span className="text-sm" style={{ color: '#4B3728' }}>{campaign.targetAudience}</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: 'oklch(0.65 0.04 55)' }} />
-                    <span className="text-sm" style={{ color: 'oklch(0.35 0.04 55)' }}>{campaign.location}</span>
+                    <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: BRAND.muted }} />
+                    <span className="text-sm" style={{ color: '#4B3728' }}>{campaign.location}</span>
                   </div>
                 </div>
               </Section>
 
               {/* Products */}
-              <Section title="Products & Platforms" icon={<span>🛍️</span>}>
+              <Section title="Products & Platforms" icon={<ShoppingBag size={16} />}>
                 <div className="flex flex-wrap gap-2 mb-3">
                   {campaign.productLabels.map(p => (
                     <span
                       key={p}
                       className="text-xs px-2.5 py-1 rounded-full border"
-                      style={{ borderColor: 'oklch(0.88 0.02 75)', color: 'oklch(0.35 0.04 55)', background: 'oklch(0.97 0.008 75)' }}
+                      style={{ borderColor: BRAND.skyBlueBorder, color: BRAND.brown, background: BRAND.creamBg }}
                     >
                       {p}
                     </span>
@@ -209,7 +246,7 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                     <span
                       key={p}
                       className="text-xs px-2.5 py-1 rounded-full font-medium"
-                      style={{ background: 'oklch(0.28 0.07 42)', color: 'white' }}
+                      style={{ background: BRAND.brown, color: 'white' }}
                     >
                       {p}
                     </span>
@@ -224,7 +261,7 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                     <MetricCard
                       label="Monthly Budget"
                       value={campaign.monthlyBudget}
-                      color="oklch(0.28 0.07 42)"
+                      color={BRAND.brown}
                     />
                   )}
                   {campaign.benchmark.outboundCTR && (
@@ -232,28 +269,28 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                       label="Outbound CTR Target"
                       value={`≥${campaign.benchmark.outboundCTR}%`}
                       sub="Primary KPI"
-                      color="oklch(0.55 0.15 145)"
+                      color="#059669"
                     />
                   )}
                   {campaign.benchmark.roas && (
                     <MetricCard
                       label="ROAS Target"
                       value={`${campaign.benchmark.roas}x`}
-                      color="oklch(0.65 0.12 55)"
+                      color={BRAND.caramel}
                     />
                   )}
                   {campaign.benchmark.cpm && (
                     <MetricCard
                       label="CPM Target"
                       value={`≤CAD $${campaign.benchmark.cpm}`}
-                      color="oklch(0.55 0.10 200)"
+                      color="#0369A1"
                     />
                   )}
                   {campaign.benchmark.frequency && (
                     <MetricCard
                       label="Max Frequency"
                       value={`${campaign.benchmark.frequency}x`}
-                      color="oklch(0.55 0.08 285)"
+                      color="#7C3AED"
                     />
                   )}
                 </div>
@@ -264,7 +301,11 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                 <Section title="Data Insight (2025 Performance)" icon={<BarChart2 size={16} />}>
                   <div
                     className="rounded-lg p-3 text-sm"
-                    style={{ background: 'oklch(0.95 0.015 55)', color: 'oklch(0.28 0.07 42)', borderLeft: '3px solid oklch(0.65 0.12 55)' }}
+                    style={{
+                      background: BRAND.skyBlueBg,
+                      color: BRAND.brown,
+                      borderLeft: `3px solid ${BRAND.skyBlue}`,
+                    }}
                   >
                     {campaign.dataInsight}
                   </div>
@@ -273,10 +314,14 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
 
               {/* Ad Copy */}
               {campaign.adCopy && (
-                <Section title="Ad Copy Direction" icon={<span>✍️</span>}>
+                <Section title="Ad Copy Direction" icon={<Palette size={16} />}>
                   <div
                     className="rounded-lg p-3 text-sm italic"
-                    style={{ background: 'oklch(0.97 0.008 75)', color: 'oklch(0.35 0.04 55)', borderLeft: '3px solid oklch(0.28 0.07 42)' }}
+                    style={{
+                      background: BRAND.cream,
+                      color: BRAND.brown,
+                      borderLeft: `3px solid ${BRAND.brown}`,
+                    }}
                   >
                     {campaign.adCopy}
                   </div>
@@ -286,16 +331,16 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
               {/* Creative Ideas */}
               {campaign.creativeIdeas && (
                 <Section title="Creative Ideas" icon={<Lightbulb size={16} />}>
-                  <p className="text-sm" style={{ color: 'oklch(0.35 0.04 55)' }}>{campaign.creativeIdeas}</p>
+                  <p className="text-sm" style={{ color: '#4B3728' }}>{campaign.creativeIdeas}</p>
                 </Section>
               )}
 
               {/* Assets */}
-              <Section title="Required Assets" icon={<span>🎨</span>}>
+              <Section title="Required Assets" icon={<CheckSquare size={16} />}>
                 <div className="space-y-1.5">
                   {campaign.assets.map((asset, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm" style={{ color: 'oklch(0.35 0.04 55)' }}>
-                      <span style={{ color: 'oklch(0.65 0.12 55)' }}>→</span>
+                    <div key={i} className="flex items-center gap-2 text-sm" style={{ color: '#4B3728' }}>
+                      <ArrowRight size={12} style={{ color: BRAND.caramel, flexShrink: 0 }} />
                       {asset}
                     </div>
                   ))}
@@ -304,7 +349,10 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
 
               {/* Production Tasks */}
               <Section title="Production Checklist" icon={<CheckSquare size={16} />}>
-                <div className="rounded-lg border overflow-hidden" style={{ borderColor: 'oklch(0.88 0.02 75)' }}>
+                <div
+                  className="rounded-lg border overflow-hidden"
+                  style={{ borderColor: BRAND.skyBlueBorder }}
+                >
                   {campaign.productionTasks.map(task => (
                     <TaskItem key={task.id} task={task} />
                   ))}
@@ -316,7 +364,11 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                 <Section title="Strategy Notes" icon={<TrendingUp size={16} />}>
                   <div
                     className="rounded-lg p-3 text-sm"
-                    style={{ background: 'oklch(0.97 0.015 200)', color: 'oklch(0.28 0.07 42)', borderLeft: '3px solid oklch(0.55 0.10 200)' }}
+                    style={{
+                      background: BRAND.skyBlueBg,
+                      color: BRAND.brown,
+                      borderLeft: `3px solid ${BRAND.skyBlue}`,
+                    }}
                   >
                     {campaign.ksNotes}
                   </div>
@@ -326,7 +378,7 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
               {/* Notes */}
               {campaign.notes && (
                 <Section title="Additional Notes" icon={<AlertCircle size={16} />}>
-                  <p className="text-sm leading-relaxed" style={{ color: 'oklch(0.45 0.04 55)' }}>
+                  <p className="text-sm leading-relaxed" style={{ color: '#4B3728' }}>
                     {campaign.notes}
                   </p>
                 </Section>

@@ -35,15 +35,15 @@ function ToggleGroup<T extends string>({
   size?: 'sm' | 'xs';
 }) {
   return (
-    <div className="flex rounded-lg overflow-hidden border" style={{ borderColor: 'oklch(0.88 0.02 75)' }}>
+    <div className="flex rounded-lg overflow-hidden border" style={{ borderColor: '#E4F5F9' }}>
       {options.map((opt) => (
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
           className={`px-3 transition-all duration-150 font-medium ${size === 'xs' ? 'py-1 text-xs' : 'py-1.5 text-xs'}`}
           style={{
-            background: value === opt.value ? 'oklch(0.28 0.07 42)' : 'white',
-            color: value === opt.value ? 'white' : 'oklch(0.45 0.04 55)',
+            background: value === opt.value ? '#3D1A0A' : 'white',
+            color: value === opt.value ? 'white' : '#6B5744',
           }}
         >
           {opt.label}
@@ -63,7 +63,7 @@ function FilterChip<T extends string>({
 }) {
   return (
     <div className="flex items-center gap-1.5">
-      <span className="text-xs font-medium" style={{ color: 'oklch(0.55 0.04 55)' }}>{label}</span>
+      <span className="text-xs font-medium" style={{ color: '#6B7280' }}>{label}</span>
       <div className="flex gap-1">
         {options.map((opt) => (
           <button
@@ -71,9 +71,9 @@ function FilterChip<T extends string>({
             onClick={() => onChange(opt.value)}
             className="px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-150 border"
             style={{
-              background: value === opt.value ? 'oklch(0.65 0.12 55)' : 'white',
-              color: value === opt.value ? 'white' : 'oklch(0.45 0.04 55)',
-              borderColor: value === opt.value ? 'oklch(0.65 0.12 55)' : 'oklch(0.88 0.02 75)',
+              background: value === opt.value ? '#A8DDE9' : 'white',
+              color: value === opt.value ? 'white' : '#6B5744',
+              borderColor: value === opt.value ? '#A8DDE9' : '#E4F5F9',
             }}
           >
             {opt.label}
@@ -105,11 +105,11 @@ export default function Header({
   };
 
   return (
-    <header className="flex-shrink-0 border-b" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}>
+    <header className="flex-shrink-0 border-b" style={{ borderColor: '#E4F5F9', background: 'white' }}>
       {/* Top bar — title + hero image strip */}
       <div
         className="relative px-6 py-4 flex items-center justify-between overflow-hidden"
-        style={{ background: 'oklch(0.28 0.07 42)' }}
+        style={{ background: '#3D1A0A' }}
       >
         {/* Background hero image */}
         <div
@@ -128,21 +128,21 @@ export default function Header({
             >
               Campaign Roadmap 2026
             </h1>
-            <p className="text-xs mt-0.5" style={{ color: 'oklch(0.78 0.04 75)' }}>
+            <p className="text-xs mt-0.5" style={{ color: '#A8DDE9' }}>
               Kim Gans — Sweet Flour | GTA + Canada | Meta + Google Ads
             </p>
           </div>
           <div className="flex gap-2">
             <span
               className="px-2.5 py-1 rounded-full text-xs font-medium"
-              style={{ background: 'oklch(0.65 0.12 55)', color: 'white' }}
+              style={{ background: '#A8DDE9', color: 'white' }}
             >
               {campaignCount} campaigns
             </span>
             {hasActiveFilters && (
               <span
                 className="px-2.5 py-1 rounded-full text-xs font-medium"
-                style={{ background: 'oklch(0.72 0.15 0 / 0.8)', color: 'white' }}
+                style={{ background: 'rgba(200,129,58,0.85)', color: 'white' }}
               >
                 Filtered
               </span>
@@ -153,7 +153,7 @@ export default function Header({
         <div className="relative flex items-center gap-3">
           {/* Time view toggle */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium" style={{ color: 'oklch(0.78 0.04 75)' }}>View:</span>
+            <span className="text-xs font-medium" style={{ color: '#A8DDE9' }}>View:</span>
             <ToggleGroup
               options={[
                 { value: 'monthly', label: 'Monthly' },
@@ -167,10 +167,10 @@ export default function Header({
       </div>
 
       {/* Filter bar */}
-      <div className="px-6 py-3 flex items-center gap-4 flex-wrap" style={{ background: 'oklch(0.98 0.008 75)' }}>
+      <div className="px-6 py-3 flex items-center gap-4 flex-wrap" style={{ background: '#F8FBFC' }}>
         {/* Search */}
         <div className="relative">
-          <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2" style={{ color: 'oklch(0.65 0.04 55)' }} />
+          <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2" style={{ color: '#9CA3AF' }} />
           <input
             type="text"
             placeholder="Search campaigns..."
@@ -178,15 +178,15 @@ export default function Header({
             onChange={(e) => onSearchChange(e.target.value)}
             className="pl-8 pr-3 py-1.5 text-xs rounded-lg border outline-none transition-all"
             style={{
-              borderColor: 'oklch(0.88 0.02 75)',
+              borderColor: '#E4F5F9',
               background: 'white',
-              color: 'oklch(0.28 0.07 42)',
+              color: '#3D1A0A',
               width: '180px',
             }}
           />
         </div>
 
-        <div className="w-px h-5" style={{ background: 'oklch(0.88 0.02 75)' }} />
+        <div className="w-px h-5" style={{ background: '#E4F5F9' }} />
 
         <FilterChip
           label="Channel:"
@@ -200,7 +200,7 @@ export default function Header({
           onChange={onChannelChange}
         />
 
-        <div className="w-px h-5" style={{ background: 'oklch(0.88 0.02 75)' }} />
+        <div className="w-px h-5" style={{ background: '#E4F5F9' }} />
 
         <FilterChip
           label="Type:"
@@ -215,7 +215,7 @@ export default function Header({
           onChange={onTypeChange}
         />
 
-        <div className="w-px h-5" style={{ background: 'oklch(0.88 0.02 75)' }} />
+        <div className="w-px h-5" style={{ background: '#E4F5F9' }} />
 
         <FilterChip
           label="Quarter:"
@@ -230,7 +230,7 @@ export default function Header({
           onChange={onQuarterChange}
         />
 
-        <div className="w-px h-5" style={{ background: 'oklch(0.88 0.02 75)' }} />
+        <div className="w-px h-5" style={{ background: '#E4F5F9' }} />
 
         <FilterChip
           label="Status:"
@@ -247,11 +247,11 @@ export default function Header({
 
         {hasActiveFilters && (
           <>
-            <div className="w-px h-5" style={{ background: 'oklch(0.88 0.02 75)' }} />
+            <div className="w-px h-5" style={{ background: '#E4F5F9' }} />
             <button
               onClick={clearAll}
               className="flex items-center gap-1 text-xs font-medium transition-colors"
-              style={{ color: 'oklch(0.55 0.12 27)' }}
+              style={{ color: '#DC2626' }}
             >
               <X size={12} />
               Clear filters

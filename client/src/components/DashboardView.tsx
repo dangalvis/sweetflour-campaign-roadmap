@@ -46,14 +46,14 @@ function KPICard({ label, value, sub, icon, color, trend }: {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       className="rounded-xl border p-5"
-      style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}
+      style={{ borderColor: '#E4F5F9', background: 'white' }}
     >
       <div className="flex items-start justify-between mb-3">
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${color}22` }}>
           <span style={{ color }}>{icon}</span>
         </div>
         {trend && (
-          <span className="text-xs font-medium px-2 py-1 rounded-full" style={{ background: 'oklch(0.95 0.015 145)', color: 'oklch(0.45 0.12 145)' }}>
+          <span className="text-xs font-medium px-2 py-1 rounded-full" style={{ background: '#E8F8F2', color: '#059669' }}>
             {trend}
           </span>
         )}
@@ -61,17 +61,17 @@ function KPICard({ label, value, sub, icon, color, trend }: {
       <div className="text-2xl font-bold mb-1" style={{ color: '#2C1A0E', fontFamily: "'Playfair Display', serif" }}>
         {value}
       </div>
-      <div className="text-sm font-medium mb-0.5" style={{ color: 'oklch(0.28 0.07 42)' }}>{label}</div>
-      <div className="text-xs" style={{ color: 'oklch(0.55 0.04 55)' }}>{sub}</div>
+      <div className="text-sm font-medium mb-0.5" style={{ color: '#3D1A0A' }}>{label}</div>
+      <div className="text-xs" style={{ color: '#6B7280' }}>{sub}</div>
     </motion.div>
   );
 }
 
 function InsightCard({ type, title, body, action }: { type: 'success' | 'warning' | 'info'; title: string; body: string; action?: string }) {
   const colors = {
-    success: { bg: 'oklch(0.95 0.015 145)', border: 'oklch(0.55 0.15 145)', icon: <CheckCircle size={16} />, text: 'oklch(0.35 0.12 145)' },
-    warning: { bg: 'oklch(0.97 0.02 55)', border: 'oklch(0.65 0.12 55)', icon: <AlertTriangle size={16} />, text: 'oklch(0.45 0.10 55)' },
-    info: { bg: 'oklch(0.97 0.01 200)', border: 'oklch(0.55 0.10 200)', icon: <Clock size={16} />, text: 'oklch(0.35 0.10 200)' },
+    success: { bg: '#E8F8F2', border: '#059669', icon: <CheckCircle size={16} />, text: '#047857' },
+    warning: { bg: '#FBF7F2', border: '#A8DDE9', icon: <AlertTriangle size={16} />, text: '#C8813A' },
+    info: { bg: '#EEF9FC', border: '#0369A1', icon: <Clock size={16} />, text: '#0369A1' },
   };
   const c = colors[type];
   return (
@@ -79,8 +79,8 @@ function InsightCard({ type, title, body, action }: { type: 'success' | 'warning
       <div className="flex items-start gap-2">
         <span style={{ color: c.text, marginTop: 1 }}>{c.icon}</span>
         <div>
-          <div className="text-sm font-semibold mb-1" style={{ color: 'oklch(0.22 0.04 55)' }}>{title}</div>
-          <div className="text-xs leading-relaxed" style={{ color: 'oklch(0.35 0.04 55)' }}>{body}</div>
+          <div className="text-sm font-semibold mb-1" style={{ color: '#2C1A0E' }}>{title}</div>
+          <div className="text-xs leading-relaxed" style={{ color: '#4B3728' }}>{body}</div>
           {action && <div className="text-xs font-medium mt-1.5" style={{ color: c.text }}>→ {action}</div>}
         </div>
       </div>
@@ -93,7 +93,7 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
   const upcoming = allCampaigns.filter(c => c.status === 'planned' || c.status === 'in-production');
 
   return (
-    <div className="p-6 space-y-6" style={{ background: 'oklch(0.98 0.008 75)' }}>
+    <div className="p-6 space-y-6" style={{ background: '#F8FBFC' }}>
       {/* Account KPIs */}
       <div>
         <h2 className="sf-section-title mb-4">Account Performance — Jan 2025 to Mar 2026</h2>
@@ -101,9 +101,9 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
           <KPICard
             label="Avg Outbound CTR"
             value="1.13%"
-            sub="Prospecting benchmark: ≥1.0% ✓"
+            sub="Prospecting benchmark: ≥1.0% — Strong"
             icon={<Target size={20} />}
-            color="oklch(0.55 0.15 145)"
+            color="#059669"
             trend="Strong"
           />
           <KPICard
@@ -111,7 +111,7 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
             value="11.2x"
             sub="Peak: 48x (Valentine's)"
             icon={<TrendingUp size={20} />}
-            color="oklch(0.65 0.12 55)"
+            color="#A8DDE9"
             trend="Excellent"
           />
           <KPICard
@@ -119,14 +119,14 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
             value="CAD $16.36"
             sub="Q4 spike to $23 is seasonal"
             icon={<DollarSign size={20} />}
-            color="oklch(0.55 0.10 200)"
+            color="#0369A1"
           />
           <KPICard
             label="Avg Frequency"
             value="1.62x"
             sub="No account-level saturation"
             icon={<Zap size={20} />}
-            color="oklch(0.55 0.08 285)"
+            color="#7C3AED"
             trend="Healthy"
           />
         </div>
@@ -135,51 +135,51 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Outbound CTR trend */}
-        <div className="rounded-xl border p-5" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}>
-          <h3 className="text-sm font-semibold mb-4" style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>
+        <div className="rounded-xl border p-5" style={{ borderColor: '#E4F5F9', background: 'white' }}>
+          <h3 className="text-sm font-semibold mb-4" style={{ color: '#3D1A0A', fontFamily: "'Playfair Display', serif" }}>
             Outbound CTR Monthly Trend
           </h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={MONTHLY_PERFORMANCE} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.01 75)" />
-              <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'oklch(0.55 0.04 55)' }} />
-              <YAxis tick={{ fontSize: 10, fill: 'oklch(0.55 0.04 55)' }} tickFormatter={(v) => `${v}%`} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E4F5F9" />
+              <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#6B7280' }} />
+              <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} tickFormatter={(v) => `${v}%`} />
               <Tooltip
                 formatter={(v: number) => [`${v.toFixed(2)}%`, 'Outbound CTR']}
-                contentStyle={{ background: 'oklch(0.22 0.04 55)', border: 'none', borderRadius: 8, color: 'white', fontSize: 12 }}
+                contentStyle={{ background: '#2C1A0E', border: 'none', borderRadius: 8, color: 'white', fontSize: 12 }}
               />
               {/* Benchmark line */}
-              <Line type="monotone" dataKey={() => 1.0} stroke="oklch(0.55 0.15 27)" strokeDasharray="4 4" strokeWidth={1} dot={false} name="Min Benchmark (1.0%)" />
-              <Line type="monotone" dataKey="outboundCTR" stroke="oklch(0.65 0.12 55)" strokeWidth={2.5} dot={{ fill: 'oklch(0.65 0.12 55)', r: 3 }} name="Outbound CTR" />
+              <Line type="monotone" dataKey={() => 1.0} stroke="#DC2626" strokeDasharray="4 4" strokeWidth={1} dot={false} name="Min Benchmark (1.0%)" />
+              <Line type="monotone" dataKey="outboundCTR" stroke="#A8DDE9" strokeWidth={2.5} dot={{ fill: '#A8DDE9', r: 3 }} name="Outbound CTR" />
             </LineChart>
           </ResponsiveContainer>
           <div className="flex items-center gap-4 mt-2">
             <div className="flex items-center gap-1.5">
-              <div className="w-4 h-0.5 rounded" style={{ background: 'oklch(0.65 0.12 55)' }} />
-              <span className="text-xs" style={{ color: 'oklch(0.55 0.04 55)' }}>Outbound CTR</span>
+              <div className="w-4 h-0.5 rounded" style={{ background: '#A8DDE9' }} />
+              <span className="text-xs" style={{ color: '#6B7280' }}>Outbound CTR</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-4 border-t border-dashed" style={{ borderColor: 'oklch(0.55 0.15 27)' }} />
-              <span className="text-xs" style={{ color: 'oklch(0.55 0.04 55)' }}>1.0% benchmark</span>
+              <div className="w-4 border-t border-dashed" style={{ borderColor: '#DC2626' }} />
+              <span className="text-xs" style={{ color: '#6B7280' }}>1.0% benchmark</span>
             </div>
           </div>
         </div>
 
         {/* Seasonal ROAS */}
-        <div className="rounded-xl border p-5" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}>
-          <h3 className="text-sm font-semibold mb-4" style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>
+        <div className="rounded-xl border p-5" style={{ borderColor: '#E4F5F9', background: 'white' }}>
+          <h3 className="text-sm font-semibold mb-4" style={{ color: '#3D1A0A', fontFamily: "'Playfair Display', serif" }}>
             Seasonal ROAS Performance (2025)
           </h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={SEASONAL_ROAS} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.92 0.01 75)" />
-              <XAxis dataKey="name" tick={{ fontSize: 9, fill: 'oklch(0.55 0.04 55)' }} />
-              <YAxis tick={{ fontSize: 10, fill: 'oklch(0.55 0.04 55)' }} tickFormatter={(v) => `${v}x`} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E4F5F9" />
+              <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#6B7280' }} />
+              <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} tickFormatter={(v) => `${v}x`} />
               <Tooltip
                 formatter={(v: number, name: string) => [name === 'roas' ? `${v.toFixed(1)}x` : `${v.toFixed(2)}%`, name === 'roas' ? 'ROAS' : 'Outbound CTR']}
-                contentStyle={{ background: 'oklch(0.22 0.04 55)', border: 'none', borderRadius: 8, color: 'white', fontSize: 12 }}
+                contentStyle={{ background: '#2C1A0E', border: 'none', borderRadius: 8, color: 'white', fontSize: 12 }}
               />
-              <Bar dataKey="roas" fill="oklch(0.65 0.12 55)" radius={[4, 4, 0, 0]} name="ROAS" />
+              <Bar dataKey="roas" fill="#A8DDE9" radius={[4, 4, 0, 0]} name="ROAS" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -231,10 +231,10 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
       {/* Upcoming campaigns */}
       <div>
         <h2 className="sf-section-title mb-4">Upcoming Campaigns</h2>
-        <div className="rounded-xl border overflow-hidden" style={{ borderColor: 'oklch(0.88 0.02 75)' }}>
+        <div className="rounded-xl border overflow-hidden" style={{ borderColor: '#E4F5F9' }}>
           <table className="w-full">
             <thead>
-              <tr style={{ background: 'oklch(0.28 0.07 42)' }}>
+              <tr style={{ background: '#3D1A0A' }}>
                 {['Campaign', 'Launch Date', 'Channel', 'Budget', 'CTR Target', 'ROAS Target', 'Priority'].map(h => (
                   <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-white uppercase tracking-wider">{h}</th>
                 ))}
@@ -246,28 +246,28 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
                   key={c.id}
                   className="border-b cursor-pointer transition-colors"
                   style={{
-                    borderColor: 'oklch(0.92 0.01 75)',
-                    background: i % 2 === 0 ? 'white' : 'oklch(0.99 0.004 75)',
+                    borderColor: '#E4F5F9',
+                    background: i % 2 === 0 ? 'white' : '#FAFEFF',
                   }}
                   onClick={() => onCampaignClick(c)}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'oklch(0.97 0.01 55)'; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = i % 2 === 0 ? 'white' : 'oklch(0.99 0.004 75)'; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#FBF7F2'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = i % 2 === 0 ? 'white' : '#FAFEFF'; }}
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <span>{c.emoji}</span>
-                      <span className="text-sm font-medium" style={{ color: 'oklch(0.28 0.07 42)' }}>{c.name}</span>
+                      <span className="text-sm font-medium" style={{ color: '#3D1A0A' }}>{c.name}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm" style={{ color: 'oklch(0.45 0.04 55)' }}>{c.startDate}</td>
-                  <td className="px-4 py-3 text-xs" style={{ color: 'oklch(0.45 0.04 55)' }}>
+                  <td className="px-4 py-3 text-sm" style={{ color: '#6B5744' }}>{c.startDate}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>
                     {c.channel === 'both' ? 'Meta + Google' : c.channel === 'meta' ? 'Meta' : 'Google'}
                   </td>
-                  <td className="px-4 py-3 text-sm font-medium" style={{ color: 'oklch(0.28 0.07 42)' }}>{c.monthlyBudget || '—'}</td>
-                  <td className="px-4 py-3 text-sm" style={{ color: 'oklch(0.55 0.15 145)' }}>
+                  <td className="px-4 py-3 text-sm font-medium" style={{ color: '#3D1A0A' }}>{c.monthlyBudget || '—'}</td>
+                  <td className="px-4 py-3 text-sm" style={{ color: '#059669' }}>
                     {c.benchmark.outboundCTR ? `≥${c.benchmark.outboundCTR}%` : '—'}
                   </td>
-                  <td className="px-4 py-3 text-sm" style={{ color: 'oklch(0.65 0.12 55)' }}>
+                  <td className="px-4 py-3 text-sm" style={{ color: '#A8DDE9' }}>
                     {c.benchmark.roas ? `${c.benchmark.roas}x` : '—'}
                   </td>
                   <td className="px-4 py-3">

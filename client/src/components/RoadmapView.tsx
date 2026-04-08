@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, ChevronRight, Info } from "lucide-react";
+import { ChevronDown, ChevronRight, Info, RefreshCw, Building2, ShoppingBag, Heart, Egg, Star, GraduationCap, Flower2, Sun, Cake, Leaf, Gift, ShoppingCart, Zap, Calendar } from "lucide-react";
 import type { Campaign } from "@/lib/campaignData";
 import type { TimeView } from "@/pages/Home";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -17,10 +17,10 @@ interface RoadmapViewProps {
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const QUARTERS = [
-  { label: 'Q1 2026', months: [0, 1, 2], bg: 'oklch(0.95 0.015 55)' },
-  { label: 'Q2 2026', months: [3, 4, 5], bg: 'oklch(0.95 0.015 145)' },
-  { label: 'Q3 2026', months: [6, 7, 8], bg: 'oklch(0.95 0.015 200)' },
-  { label: 'Q4 2026', months: [9, 10, 11], bg: 'oklch(0.95 0.015 40)' },
+  { label: 'Q1 2026', months: [0, 1, 2], bg: '#EEF9FC' },
+  { label: 'Q2 2026', months: [3, 4, 5], bg: '#E8F8F2' },
+  { label: 'Q3 2026', months: [6, 7, 8], bg: '#EEF9FC' },
+  { label: 'Q4 2026', months: [9, 10, 11], bg: '#FDF3E8' },
 ];
 
 const CURRENT_MONTH = 3; // April 2026 (0-indexed)
@@ -55,22 +55,50 @@ function getPriorityDot(priority: Campaign['priority']): string {
   }
 }
 
-function getChannelBadge(channel: Campaign['channel']): string {
+function getChannelLabel(channel: Campaign['channel']): string {
   switch (channel) {
-    case 'meta': return '📘 Meta';
-    case 'google': return '🔍 Google';
-    case 'both': return '📘🔍 Both';
+    case 'meta': return 'Meta';
+    case 'google': return 'Google';
+    case 'both': return 'Meta + Google';
   }
+}
+
+function getChannelDot(channel: Campaign['channel']): string {
+  switch (channel) {
+    case 'meta': return '#1877F2';
+    case 'google': return '#34A853';
+    case 'both': return '#A8DDE9';
+  }
+}
+
+function getCampaignIcon(id: string) {
+  if (id.includes('evergreen') || id.includes('gifting')) return <Gift size={12} strokeWidth={2} />;
+  if (id.includes('corp')) return <Building2 size={12} strokeWidth={2} />;
+  if (id.includes('rem') || id.includes('remarketing')) return <RefreshCw size={12} strokeWidth={2} />;
+  if (id.includes('valentine') || id.includes('val')) return <Heart size={12} strokeWidth={2} />;
+  if (id.includes('easter') || id.includes('spring')) return <Egg size={12} strokeWidth={2} />;
+  if (id.includes('admin')) return <Star size={12} strokeWidth={2} />;
+  if (id.includes('mom') || id.includes('mother')) return <Flower2 size={12} strokeWidth={2} />;
+  if (id.includes('grad')) return <GraduationCap size={12} strokeWidth={2} />;
+  if (id.includes('dad') || id.includes('father')) return <ShoppingBag size={12} strokeWidth={2} />;
+  if (id.includes('summer') || id.includes('wedding')) return <Sun size={12} strokeWidth={2} />;
+  if (id.includes('school') || id.includes('back')) return <ShoppingCart size={12} strokeWidth={2} />;
+  if (id.includes('halloween') || id.includes('spooky')) return <Zap size={12} strokeWidth={2} />;
+  if (id.includes('bfcm') || id.includes('black')) return <ShoppingCart size={12} strokeWidth={2} />;
+  if (id.includes('holiday') || id.includes('christmas')) return <Gift size={12} strokeWidth={2} />;
+  if (id.includes('thanksgiv') || id.includes('grateful')) return <Leaf size={12} strokeWidth={2} />;
+  if (id.includes('new-year') || id.includes('newyear')) return <Calendar size={12} strokeWidth={2} />;
+  return <Cake size={12} strokeWidth={2} />;
 }
 
 type GroupKey = 'evergreen' | 'q1' | 'q2' | 'q3' | 'q4';
 
 const GROUP_LABELS: Record<GroupKey, string> = {
-  evergreen: '🌿 Always-On Campaigns',
-  q1: '❄️ Q1 — Jan / Feb / Mar',
-  q2: '🌸 Q2 — Apr / May / Jun',
-  q3: '☀️ Q3 — Jul / Aug / Sep',
-  q4: '🍂 Q4 — Oct / Nov / Dec',
+  evergreen: 'Always-On Campaigns',
+  q1: 'Q1 — Jan / Feb / Mar',
+  q2: 'Q2 — Apr / May / Jun',
+  q3: 'Q3 — Jul / Aug / Sep',
+  q4: 'Q4 — Oct / Nov / Dec',
 };
 
 function groupCampaigns(campaigns: Campaign[]): Record<GroupKey, Campaign[]> {
@@ -127,33 +155,33 @@ function CampaignBarCell({ campaign, monthIndex, colCount, onClick, isMonthly }:
               transformOrigin: 'left center',
             }}
           >
-            <span className="text-sm flex-shrink-0">{campaign.emoji}</span>
-            {span > 1 && (
-              <span className="text-xs font-semibold text-white truncate">
-                {campaign.name}
-              </span>
-            )}
+                    <span className="text-white flex-shrink-0">{getCampaignIcon(campaign.id)}</span>
+              {span > 1 && (
+                <span className="text-xs font-semibold text-white truncate">
+                  {campaign.name}
+                </span>
+              )}
           </motion.div>
         </div>
       </TooltipTrigger>
       <TooltipContent
         side="top"
         className="max-w-xs p-3 text-left"
-        style={{ background: 'oklch(0.22 0.04 55)', border: 'none' }}
+        style={{ background: '#2C1A0E', border: 'none' }}
       >
-        <div className="text-white font-semibold text-sm mb-1">{campaign.emoji} {campaign.name}</div>
-        <div className="text-xs space-y-1" style={{ color: 'oklch(0.78 0.04 75)' }}>
-          <div>📅 {campaign.startDate} → {campaign.endDate}</div>
-          <div>🎯 {campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
-          <div>💰 {campaign.monthlyBudget}</div>
+                            <div className="text-white font-semibold text-sm mb-1">{campaign.name}</div>
+        <div className="text-xs space-y-1" style={{ color: '#A8DDE9' }}>
+          <div>{campaign.startDate} → {campaign.endDate}</div>
+          <div>{campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
+          <div>Budget: {campaign.monthlyBudget}</div>
           {campaign.benchmark.outboundCTR && (
-            <div>📊 Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
+            <div>Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
           )}
           {campaign.benchmark.roas && (
-            <div>📈 ROAS target: {campaign.benchmark.roas}x</div>
+            <div>ROAS target: {campaign.benchmark.roas}x</div>
           )}
         </div>
-        <div className="mt-2 text-xs font-medium" style={{ color: 'oklch(0.65 0.12 55)' }}>
+        <div className="mt-2 text-xs font-medium" style={{ color: '#A8DDE9' }}>
           Click for full details →
         </div>
       </TooltipContent>
@@ -182,7 +210,7 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
   const totalWidth = LABEL_WIDTH + colCount * COL_WIDTH;
 
   return (
-    <div className="p-6 min-h-full" style={{ background: 'oklch(0.98 0.008 75)' }}>
+    <div className="p-6 min-h-full" style={{ background: '#F8FBFC' }}>
       {/* Legend */}
       <div className="flex items-center gap-5 mb-5 flex-wrap">
         <span className="sf-label">Legend:</span>
@@ -194,10 +222,10 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
         ].map(item => (
           <div key={item.label} className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-sm" style={{ background: item.color }} />
-            <span className="text-xs" style={{ color: 'oklch(0.45 0.04 55)' }}>{item.label}</span>
+            <span className="text-xs" style={{ color: '#6B5744' }}>{item.label}</span>
           </div>
         ))}
-        <div className="ml-auto flex items-center gap-1 text-xs" style={{ color: 'oklch(0.55 0.04 55)' }}>
+        <div className="ml-auto flex items-center gap-1 text-xs" style={{ color: '#6B7280' }}>
           <Info size={12} />
           Click any campaign bar for full details
         </div>
@@ -206,18 +234,18 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
       {/* Timeline table */}
       <div
         className="rounded-xl border overflow-x-auto"
-        style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}
+        style={{ borderColor: '#E4F5F9', background: 'white' }}
       >
         <div style={{ minWidth: totalWidth }}>
 
           {/* Header row — months/quarters */}
           <div
             className="flex border-b sticky top-0 z-20"
-            style={{ borderColor: 'oklch(0.35 0.06 42)', background: 'oklch(0.28 0.07 42)' }}
+            style={{ borderColor: '#2A1208', background: '#3D1A0A' }}
           >
             <div
               className="flex-shrink-0 flex items-center px-4 py-3"
-              style={{ width: LABEL_WIDTH, borderRight: '1px solid oklch(0.35 0.06 42)' }}
+              style={{ width: LABEL_WIDTH, borderRight: '1px solid #2A1208' }}
             >
               <span className="text-xs font-semibold text-white uppercase tracking-wider">Campaign</span>
             </div>
@@ -229,9 +257,9 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                   className="flex-shrink-0 flex items-center justify-center py-3 text-xs font-semibold uppercase tracking-wider border-r"
                   style={{
                     width: COL_WIDTH,
-                    borderColor: 'oklch(0.35 0.06 42)',
-                    color: isCurrent ? 'oklch(0.65 0.12 55)' : 'oklch(0.78 0.04 75)',
-                    background: isCurrent ? 'oklch(0.22 0.06 42)' : 'transparent',
+                    borderColor: '#2A1208',
+                    color: isCurrent ? '#A8DDE9' : 'rgba(255,255,255,0.7)',
+                    background: isCurrent ? '#2A1208' : 'transparent',
                   }}
                 >
                   {isCurrent && <span className="mr-1 text-xs">▶</span>}
@@ -245,11 +273,11 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
           {isMonthly && (
             <div
               className="flex border-b"
-              style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'oklch(0.97 0.01 75)' }}
+              style={{ borderColor: '#E4F5F9', background: '#EEF9FC' }}
             >
               <div
                 className="flex-shrink-0"
-                style={{ width: LABEL_WIDTH, borderRight: '1px solid oklch(0.88 0.02 75)' }}
+                style={{ width: LABEL_WIDTH, borderRight: '1px solid #E4F5F9' }}
               />
               {QUARTERS.map((q) => (
                 <div
@@ -257,8 +285,8 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                   className="flex items-center justify-center py-1.5 text-xs font-medium border-r"
                   style={{
                     width: COL_WIDTH * 3,
-                    borderColor: 'oklch(0.88 0.02 75)',
-                    color: 'oklch(0.45 0.04 55)',
+                    borderColor: '#E4F5F9',
+                    color: '#3D1A0A',
                     background: q.bg,
                   }}
                 >
@@ -279,24 +307,24 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                 {/* Group header row */}
                 <div
                   className="flex items-center border-b cursor-pointer select-none transition-colors"
-                  style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'oklch(0.95 0.012 75)' }}
+                  style={{ borderColor: '#E4F5F9', background: '#EEF9FC' }}
                   onClick={() => toggleGroup(groupKey)}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'oklch(0.92 0.015 75)'; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'oklch(0.95 0.012 75)'; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = '#D8F0F7'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = '#EEF9FC'; }}
                 >
                   <div
                     className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5"
-                    style={{ width: LABEL_WIDTH, borderRight: '1px solid oklch(0.88 0.02 75)' }}
+                    style={{ width: LABEL_WIDTH, borderRight: '1px solid #E4F5F9' }}
                   >
-                    <span style={{ color: 'oklch(0.45 0.04 55)' }}>
+                    <span style={{ color: '#3D1A0A' }}>
                       {isCollapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
                     </span>
-                    <span className="text-xs font-semibold" style={{ color: 'oklch(0.28 0.07 42)' }}>
+                    <span className="text-xs font-semibold" style={{ color: '#3D1A0A' }}>
                       {GROUP_LABELS[groupKey]}
                     </span>
                     <span
                       className="ml-auto text-xs px-1.5 py-0.5 rounded-full"
-                      style={{ background: 'oklch(0.28 0.07 42)', color: 'white' }}
+                      style={{ background: '#3D1A0A', color: 'white' }}
                     >
                       {groupItems.length}
                     </span>
@@ -323,8 +351,8 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                       transition={{ delay: rowIdx * 0.03 }}
                       className="flex border-b"
                       style={{
-                        borderColor: 'oklch(0.92 0.01 75)',
-                        background: rowIdx % 2 === 0 ? 'white' : 'oklch(0.995 0.003 75)',
+                        borderColor: '#E4F5F9',
+                        background: rowIdx % 2 === 0 ? 'white' : '#FAFEFF',
                         minHeight: 48,
                       }}
                     >
@@ -333,7 +361,7 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                         className="flex-shrink-0 flex items-center gap-2 px-4 py-2 cursor-pointer group"
                         style={{
                           width: LABEL_WIDTH,
-                          borderRight: '1px solid oklch(0.92 0.01 75)',
+                          borderRight: '1px solid #E4F5F9',
                         }}
                         onClick={() => onCampaignClick(campaign)}
                       >
@@ -344,9 +372,9 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                         <div className="min-w-0 flex-1">
                           <div
                             className="text-xs font-medium truncate group-hover:underline"
-                            style={{ color: 'oklch(0.28 0.07 42)' }}
+                            style={{ color: '#3D1A0A' }}
                           >
-                            {campaign.emoji} {campaign.name}
+                            {campaign.name}
                           </div>
                           <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
                             <span
@@ -359,8 +387,12 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                             >
                               {getStatusLabel(campaign.status)}
                             </span>
-                            <span className="text-xs" style={{ color: 'oklch(0.65 0.04 55)', fontSize: '10px' }}>
-                              {getChannelBadge(campaign.channel)}
+                            <span
+                              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm"
+                              style={{ background: `${getChannelDot(campaign.channel)}18`, fontSize: '10px', color: getChannelDot(campaign.channel) }}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: getChannelDot(campaign.channel) }} />
+                              {getChannelLabel(campaign.channel)}
                             </span>
                           </div>
                         </div>
@@ -378,8 +410,8 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                             style={{
                               left: CURRENT_MONTH * COL_WIDTH,
                               width: COL_WIDTH,
-                              background: 'oklch(0.65 0.12 55 / 0.06)',
-                              borderLeft: '2px solid oklch(0.65 0.12 55 / 0.25)',
+                              background: 'rgba(168, 221, 233, 0.12)',
+                              borderLeft: '2px solid rgba(168, 221, 233, 0.5)',
                             }}
                           />
                         )}
@@ -392,7 +424,7 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                             style={{
                               left: i * COL_WIDTH,
                               width: COL_WIDTH,
-                              borderColor: 'oklch(0.93 0.01 75)',
+                              borderColor: '#E4F5F9',
                               zIndex: 0,
                             }}
                           />
@@ -416,7 +448,7 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                                 transformOrigin: 'left center',
                               }}
                             >
-                              <span className="text-sm flex-shrink-0">{campaign.emoji}</span>
+                              <span className="text-white flex-shrink-0">{getCampaignIcon(campaign.id)}</span>
                               {barSpan > 1 && (
                                 <span className="text-xs font-semibold text-white truncate">
                                   {campaign.name}
@@ -427,21 +459,21 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                           <TooltipContent
                             side="top"
                             className="max-w-xs p-3 text-left"
-                            style={{ background: 'oklch(0.22 0.04 55)', border: 'none' }}
+                            style={{ background: '#2C1A0E', border: 'none' }}
                           >
-                            <div className="text-white font-semibold text-sm mb-1">{campaign.emoji} {campaign.name}</div>
-                            <div className="text-xs space-y-1" style={{ color: 'oklch(0.78 0.04 75)' }}>
-                              <div>📅 {campaign.startDate} → {campaign.endDate}</div>
-                              <div>🎯 {campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
-                              <div>💰 {campaign.monthlyBudget}</div>
+                            <div className="text-white font-semibold text-sm mb-1">{campaign.name}</div>
+                            <div className="text-xs space-y-1" style={{ color: '#A8DDE9' }}>
+                              <div>{campaign.startDate} → {campaign.endDate}</div>
+                              <div>{campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
+                              <div>Budget: {campaign.monthlyBudget}</div>
                               {campaign.benchmark.outboundCTR && (
-                                <div>📊 Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
+                                <div>Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
                               )}
                               {campaign.benchmark.roas && (
-                                <div>📈 ROAS target: {campaign.benchmark.roas}x</div>
+                                <div>ROAS target: {campaign.benchmark.roas}x</div>
                               )}
                             </div>
-                            <div className="mt-2 text-xs font-medium" style={{ color: 'oklch(0.65 0.12 55)' }}>
+                            <div className="mt-2 text-xs font-medium" style={{ color: '#A8DDE9' }}>
                               Click for full details →
                             </div>
                           </TooltipContent>
@@ -458,34 +490,34 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
 
       {/* Quarterly Budget Overview */}
       {isMonthly && (
-        <div className="mt-6 rounded-xl border overflow-hidden" style={{ borderColor: 'oklch(0.88 0.02 75)' }}>
+        <div className="mt-6 rounded-xl border overflow-hidden" style={{ borderColor: '#E4F5F9' }}>
           <div
             className="px-4 py-3 border-b"
-            style={{ background: 'oklch(0.28 0.07 42)', borderColor: 'oklch(0.35 0.06 42)' }}
+            style={{ background: '#3D1A0A', borderColor: '#2A1208' }}
           >
             <span className="text-xs font-semibold text-white uppercase tracking-wider">Quarterly Budget Overview</span>
           </div>
           <div className="grid grid-cols-4">
             {[
-              { q: 'Q1 2026', budget: 'CAD $3,600–4,500', focus: "Valentine's + Evergreen", roas: '48x peak', color: 'oklch(0.95 0.015 55)', border: '#C8813A' },
-              { q: 'Q2 2026', budget: 'CAD $3,200–4,200', focus: "Easter + Mother's Day + Grad", roas: '8–15x', color: 'oklch(0.95 0.015 145)', border: '#4CAF82' },
-              { q: 'Q3 2026', budget: 'CAD $2,800–3,800', focus: "Wedding + Back-to-School + TG", roas: '5–9x', color: 'oklch(0.95 0.015 200)', border: '#5B8DB8' },
-              { q: 'Q4 2026', budget: 'CAD $4,500–6,000', focus: "Halloween + BFCM + Holiday", roas: '15–22x', color: 'oklch(0.95 0.015 40)', border: '#E07B39' },
+              { q: 'Q1 2026', budget: 'CAD $3,600–4,500', focus: "Valentine's + Evergreen", roas: '48x peak', color: '#EEF9FC', border: '#C8813A' },
+              { q: 'Q2 2026', budget: 'CAD $3,200–4,200', focus: "Easter + Mother's Day + Grad", roas: '8–15x', color: '#E8F8F2', border: '#4CAF82' },
+              { q: 'Q3 2026', budget: 'CAD $2,800–3,800', focus: "Wedding + Back-to-School + TG", roas: '5–9x', color: '#EEF9FC', border: '#5B8DB8' },
+              { q: 'Q4 2026', budget: 'CAD $4,500–6,000', focus: "Halloween + BFCM + Holiday", roas: '15–22x', color: '#FDF3E8', border: '#E07B39' },
             ].map((item, i) => (
               <div
                 key={item.q}
                 className="p-4 border-r last:border-r-0"
-                style={{ background: item.color, borderColor: 'oklch(0.88 0.02 75)', borderTop: `3px solid ${item.border}` }}
+                style={{ background: item.color, borderColor: '#E4F5F9', borderTop: `3px solid ${item.border}` }}
               >
                 <div
                   className="text-xs font-bold mb-1"
-                  style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}
+                  style={{ color: '#3D1A0A', fontFamily: "'Playfair Display', serif" }}
                 >
                   {item.q}
                 </div>
-                <div className="text-sm font-semibold" style={{ color: 'oklch(0.28 0.07 42)' }}>{item.budget}</div>
-                <div className="text-xs mt-1" style={{ color: 'oklch(0.45 0.04 55)' }}>{item.focus}</div>
-                <div className="text-xs mt-1 font-medium" style={{ color: 'oklch(0.45 0.12 145)' }}>ROAS: {item.roas}</div>
+                <div className="text-sm font-semibold" style={{ color: '#3D1A0A' }}>{item.budget}</div>
+                <div className="text-xs mt-1" style={{ color: '#6B5744' }}>{item.focus}</div>
+                <div className="text-xs mt-1 font-medium" style={{ color: '#059669' }}>ROAS: {item.roas}</div>
               </div>
             ))}
           </div>

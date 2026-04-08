@@ -39,11 +39,11 @@ function BenchmarkRow({ label, value, benchmark, unit, higherIsBetter = true }: 
     : Math.min(100, (benchmark / value) * 100);
 
   return (
-    <div className="py-3 border-b last:border-0" style={{ borderColor: 'oklch(0.92 0.01 75)' }}>
+    <div className="py-3 border-b last:border-0" style={{ borderColor: '#E4F5F9' }}>
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium" style={{ color: 'oklch(0.28 0.07 42)' }}>{label}</span>
+        <span className="text-sm font-medium" style={{ color: '#3D1A0A' }}>{label}</span>
         <div className="flex items-center gap-3">
-          <span className="text-xs" style={{ color: 'oklch(0.55 0.04 55)' }}>Benchmark: {benchmark}{unit}</span>
+          <span className="text-xs" style={{ color: '#6B7280' }}>Benchmark: {benchmark}{unit}</span>
           <span
             className="text-sm font-bold"
             style={{ color: isGood ? '#059669' : '#DC2626' }}
@@ -53,7 +53,7 @@ function BenchmarkRow({ label, value, benchmark, unit, higherIsBetter = true }: 
           <span className="text-lg">{isGood ? '✅' : '⚠️'}</span>
         </div>
       </div>
-      <div className="h-2 rounded-full overflow-hidden" style={{ background: 'oklch(0.92 0.01 75)' }}>
+      <div className="h-2 rounded-full overflow-hidden" style={{ background: '#E4F5F9' }}>
         <div
           className="h-full rounded-full transition-all"
           style={{
@@ -68,13 +68,13 @@ function BenchmarkRow({ label, value, benchmark, unit, higherIsBetter = true }: 
 
 export default function PerformanceView() {
   return (
-    <div className="p-6 space-y-6" style={{ background: 'oklch(0.98 0.008 75)' }}>
+    <div className="p-6 space-y-6" style={{ background: '#F8FBFC' }}>
       {/* Account benchmarks */}
       <div>
         <h2 className="sf-section-title mb-4">📊 Account vs. Benchmarks</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-xl border p-5" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}>
-            <h3 className="text-sm font-semibold mb-4" style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>
+          <div className="rounded-xl border p-5" style={{ borderColor: '#E4F5F9', background: 'white' }}>
+            <h3 className="text-sm font-semibold mb-4" style={{ color: '#3D1A0A', fontFamily: "'Playfair Display', serif" }}>
               Meta Ads — Prospecting Benchmarks
             </h3>
             <BenchmarkRow label="Outbound CTR" value={1.13} benchmark={1.0} unit="%" higherIsBetter />
@@ -83,8 +83,8 @@ export default function PerformanceView() {
             <BenchmarkRow label="Frequency" value={1.62} benchmark={2.5} unit="x" higherIsBetter={false} />
           </div>
 
-          <div className="rounded-xl border p-5" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}>
-            <h3 className="text-sm font-semibold mb-4" style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>
+          <div className="rounded-xl border p-5" style={{ borderColor: '#E4F5F9', background: 'white' }}>
+            <h3 className="text-sm font-semibold mb-4" style={{ color: '#3D1A0A', fontFamily: "'Playfair Display', serif" }}>
               CTR Framework — What Each Metric Means
             </h3>
             <div className="space-y-3">
@@ -93,12 +93,12 @@ export default function PerformanceView() {
                 { label: '🔗 Link CTR (Secondary)', desc: 'Clicks on any link including internal Meta links. Slightly inflated vs Outbound CTR. Use for quick directional reads.', color: '#3B82F6', badge: '2.00% avg' },
                 { label: '📊 CTR All (Vanity)', desc: 'Includes likes, comment expansions, profile clicks. NOT a performance metric. Do not use for decisions.', color: '#9CA3AF', badge: 'Vanity only' },
               ].map(item => (
-                <div key={item.label} className="rounded-lg p-3 border" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'oklch(0.99 0.004 75)' }}>
+                <div key={item.label} className="rounded-lg p-3 border" style={{ borderColor: '#E4F5F9', background: '#FAFEFF' }}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold" style={{ color: 'oklch(0.28 0.07 42)' }}>{item.label}</span>
+                    <span className="text-xs font-semibold" style={{ color: '#3D1A0A' }}>{item.label}</span>
                     <span className="text-xs px-2 py-0.5 rounded-full font-medium text-white" style={{ background: item.color }}>{item.badge}</span>
                   </div>
-                  <p className="text-xs leading-relaxed" style={{ color: 'oklch(0.45 0.04 55)' }}>{item.desc}</p>
+                  <p className="text-xs leading-relaxed" style={{ color: '#6B5744' }}>{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -109,21 +109,21 @@ export default function PerformanceView() {
       {/* Creative Fatigue Analysis */}
       <div>
         <h2 className="sf-section-title mb-4">🔥 Creative Fatigue Analysis — Monthly Signals</h2>
-        <div className="rounded-xl border p-5" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}>
+        <div className="rounded-xl border p-5" style={{ borderColor: '#E4F5F9', background: 'white' }}>
           <div className="flex items-center gap-4 mb-4 flex-wrap">
             {Object.entries(SIGNAL_COLORS).map(([signal, color]) => (
               <div key={signal} className="flex items-center gap-1.5">
                 <div className="w-3 h-3 rounded-full" style={{ background: color }} />
-                <span className="text-xs" style={{ color: 'oklch(0.45 0.04 55)' }}>{signal}</span>
+                <span className="text-xs" style={{ color: '#6B5744' }}>{signal}</span>
               </div>
             ))}
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ background: 'oklch(0.97 0.008 75)' }}>
+                <tr style={{ background: '#FBF7F2' }}>
                   {['Month', 'Outbound CTR', 'vs Benchmark', 'CPM', 'Frequency', 'Fatigue Signal'].map(h => (
-                    <th key={h} className="text-left px-3 py-2 text-xs font-semibold uppercase tracking-wider" style={{ color: 'oklch(0.45 0.04 55)' }}>{h}</th>
+                    <th key={h} className="text-left px-3 py-2 text-xs font-semibold uppercase tracking-wider" style={{ color: '#6B5744' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -131,16 +131,16 @@ export default function PerformanceView() {
                 {FATIGUE_SIGNALS.map((row, i) => {
                   const vsB = row.outboundCTR - 1.0;
                   return (
-                    <tr key={row.month} className="border-t" style={{ borderColor: 'oklch(0.92 0.01 75)', background: i % 2 === 0 ? 'white' : 'oklch(0.99 0.004 75)' }}>
-                      <td className="px-3 py-2.5 font-medium" style={{ color: 'oklch(0.28 0.07 42)' }}>{row.month}</td>
+                    <tr key={row.month} className="border-t" style={{ borderColor: '#E4F5F9', background: i % 2 === 0 ? 'white' : '#FAFEFF' }}>
+                      <td className="px-3 py-2.5 font-medium" style={{ color: '#3D1A0A' }}>{row.month}</td>
                       <td className="px-3 py-2.5 font-bold" style={{ color: row.outboundCTR >= 1.0 ? '#059669' : '#DC2626' }}>
                         {row.outboundCTR.toFixed(2)}%
                       </td>
                       <td className="px-3 py-2.5 text-xs font-medium" style={{ color: vsB >= 0 ? '#059669' : '#DC2626' }}>
                         {vsB >= 0 ? '+' : ''}{vsB.toFixed(2)}pp
                       </td>
-                      <td className="px-3 py-2.5" style={{ color: 'oklch(0.45 0.04 55)' }}>CAD ${row.cpm.toFixed(2)}</td>
-                      <td className="px-3 py-2.5" style={{ color: row.frequency >= 2.5 ? '#DC2626' : 'oklch(0.45 0.04 55)' }}>
+                      <td className="px-3 py-2.5" style={{ color: '#6B5744' }}>CAD ${row.cpm.toFixed(2)}</td>
+                      <td className="px-3 py-2.5" style={{ color: row.frequency >= 2.5 ? '#DC2626' : '#6B5744' }}>
                         {row.frequency.toFixed(1)}x
                       </td>
                       <td className="px-3 py-2.5">
@@ -163,10 +163,10 @@ export default function PerformanceView() {
       {/* Google Ads Performance */}
       <div>
         <h2 className="sf-section-title mb-4">🔍 Google Ads — March 2026 Performance</h2>
-        <div className="rounded-xl border overflow-hidden" style={{ borderColor: 'oklch(0.88 0.02 75)' }}>
+        <div className="rounded-xl border overflow-hidden" style={{ borderColor: '#E4F5F9' }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ background: 'oklch(0.28 0.07 42)' }}>
+              <tr style={{ background: '#3D1A0A' }}>
                 {['Campaign', 'Type', 'Budget/Day', 'Cost', 'CTR', 'Conversions', 'Conv. Value', 'ROAS', 'Status'].map(h => (
                   <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-white uppercase tracking-wider">{h}</th>
                 ))}
@@ -174,16 +174,16 @@ export default function PerformanceView() {
             </thead>
             <tbody>
               {googleCampaigns.map((c, i) => (
-                <tr key={c.name} className="border-t" style={{ borderColor: 'oklch(0.92 0.01 75)', background: i % 2 === 0 ? 'white' : 'oklch(0.99 0.004 75)' }}>
-                  <td className="px-4 py-3 font-medium text-xs" style={{ color: 'oklch(0.28 0.07 42)', maxWidth: 200 }}>
+                <tr key={c.name} className="border-t" style={{ borderColor: '#E4F5F9', background: i % 2 === 0 ? 'white' : '#FAFEFF' }}>
+                  <td className="px-4 py-3 font-medium text-xs" style={{ color: '#3D1A0A', maxWidth: 200 }}>
                     <div className="truncate" title={c.name}>{c.name}</div>
                   </td>
-                  <td className="px-4 py-3 text-xs" style={{ color: 'oklch(0.45 0.04 55)' }}>{c.type}</td>
-                  <td className="px-4 py-3 text-xs font-medium" style={{ color: 'oklch(0.28 0.07 42)' }}>{c.budget}</td>
-                  <td className="px-4 py-3 text-xs" style={{ color: 'oklch(0.45 0.04 55)' }}>CA${c.cost.toFixed(2)}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>{c.type}</td>
+                  <td className="px-4 py-3 text-xs font-medium" style={{ color: '#3D1A0A' }}>{c.budget}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>CA${c.cost.toFixed(2)}</td>
                   <td className="px-4 py-3 text-xs font-medium" style={{ color: c.ctr >= 1.0 ? '#059669' : '#D97706' }}>{c.ctr.toFixed(2)}%</td>
-                  <td className="px-4 py-3 text-xs" style={{ color: 'oklch(0.45 0.04 55)' }}>{c.conversions.toFixed(1)}</td>
-                  <td className="px-4 py-3 text-xs font-medium" style={{ color: 'oklch(0.28 0.07 42)' }}>CA${c.convValue.toFixed(2)}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>{c.conversions.toFixed(1)}</td>
+                  <td className="px-4 py-3 text-xs font-medium" style={{ color: '#3D1A0A' }}>CA${c.convValue.toFixed(2)}</td>
                   <td className="px-4 py-3 text-xs font-bold" style={{ color: c.roas >= 4 ? '#059669' : '#D97706' }}>{c.roas.toFixed(2)}x</td>
                   <td className="px-4 py-3">
                     <span
@@ -200,8 +200,8 @@ export default function PerformanceView() {
               ))}
             </tbody>
           </table>
-          <div className="px-4 py-3 border-t" style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'oklch(0.97 0.008 75)' }}>
-            <div className="flex items-center gap-2 text-xs" style={{ color: 'oklch(0.45 0.04 55)' }}>
+          <div className="px-4 py-3 border-t" style={{ borderColor: '#E4F5F9', background: '#FBF7F2' }}>
+            <div className="flex items-center gap-2 text-xs" style={{ color: '#6B5744' }}>
               <span className="font-semibold" style={{ color: '#D97706' }}>⚠️ Key Finding:</span>
               3 of 5 campaigns are "Limited by Budget" — increasing daily budgets on Cookie Cakes ($4/day) and Demand Gen ($0.50/day) could unlock significant additional revenue.
               Brand Search campaign shows exceptional 22.2x ROAS at $8.50/day — this is severely underfunded.
@@ -221,9 +221,9 @@ export default function PerformanceView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               className="rounded-xl border p-5"
-              style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white' }}
+              style={{ borderColor: '#E4F5F9', background: 'white' }}
             >
-              <div className="text-sm font-semibold mb-3 leading-tight" style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>
+              <div className="text-sm font-semibold mb-3 leading-tight" style={{ color: '#3D1A0A', fontFamily: "'Playfair Display', serif" }}>
                 {c.name.replace('Sweet Flour | Conversions | ', '')}
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -233,14 +233,14 @@ export default function PerformanceView() {
                   { label: 'Spend', value: `$${c.spend.toFixed(2)}`, unit: '' },
                   { label: 'Cost/Result', value: `$${c.costPerResult.toFixed(2)}`, unit: '' },
                 ].map(item => (
-                  <div key={item.label} className="rounded-lg p-2.5" style={{ background: 'oklch(0.97 0.008 75)' }}>
-                    <div className="text-xs mb-0.5" style={{ color: 'oklch(0.55 0.04 55)' }}>{item.label}</div>
-                    <div className="text-sm font-bold" style={{ color: 'oklch(0.28 0.07 42)' }}>{item.value}{item.unit}</div>
+                  <div key={item.label} className="rounded-lg p-2.5" style={{ background: '#FBF7F2' }}>
+                    <div className="text-xs mb-0.5" style={{ color: '#6B7280' }}>{item.label}</div>
+                    <div className="text-sm font-bold" style={{ color: '#3D1A0A' }}>{item.value}{item.unit}</div>
                   </div>
                 ))}
               </div>
-              <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: 'oklch(0.92 0.01 75)' }}>
-                <span className="text-xs" style={{ color: 'oklch(0.55 0.04 55)' }}>Purchase ROAS</span>
+              <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#E4F5F9' }}>
+                <span className="text-xs" style={{ color: '#6B7280' }}>Purchase ROAS</span>
                 <span className="text-lg font-bold" style={{ color: c.roas >= 4 ? '#059669' : '#D97706', fontFamily: "'Playfair Display', serif" }}>
                   {c.roas.toFixed(2)}x
                 </span>
@@ -283,17 +283,17 @@ export default function PerformanceView() {
             <div
               key={item.scenario}
               className="rounded-xl border p-5"
-              style={{ borderColor: 'oklch(0.88 0.02 75)', background: 'white', borderTop: `3px solid ${item.color}` }}
+              style={{ borderColor: '#E4F5F9', background: 'white', borderTop: `3px solid ${item.color}` }}
             >
               <div className="text-2xl mb-2">{item.icon}</div>
-              <div className="text-sm font-semibold mb-1" style={{ color: 'oklch(0.28 0.07 42)', fontFamily: "'Playfair Display', serif" }}>
+              <div className="text-sm font-semibold mb-1" style={{ color: '#3D1A0A', fontFamily: "'Playfair Display', serif" }}>
                 {item.scenario}
               </div>
               <div className="text-xs font-bold mb-2 px-2 py-1 rounded-full inline-block text-white" style={{ background: item.color }}>
                 → {item.meaning}
               </div>
-              <p className="text-xs leading-relaxed mb-3" style={{ color: 'oklch(0.45 0.04 55)' }}>{item.description}</p>
-              <div className="text-xs font-medium p-2.5 rounded-lg" style={{ background: 'oklch(0.97 0.008 75)', color: 'oklch(0.35 0.04 55)' }}>
+              <p className="text-xs leading-relaxed mb-3" style={{ color: '#6B5744' }}>{item.description}</p>
+              <div className="text-xs font-medium p-2.5 rounded-lg" style={{ background: '#FBF7F2', color: '#4B3728' }}>
                 <span style={{ color: item.color }}>Action: </span>{item.action}
               </div>
             </div>
