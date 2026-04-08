@@ -13,13 +13,13 @@ import CampaignDrawer from "@/components/CampaignDrawer";
 import DashboardView from "@/components/DashboardView";
 import ProductionView from "@/components/ProductionView";
 import PerformanceView from "@/components/PerformanceView";
-import { allCampaigns, type Campaign } from "@/lib/campaignData";
+import { campaigns as allCampaigns, type Campaign } from "@/lib/campaignData";
 
 export type ViewMode = 'roadmap' | 'dashboard' | 'production' | 'performance';
 export type TimeView = 'monthly' | 'quarterly';
 export type ChannelFilter = 'all' | 'meta' | 'google' | 'both';
 export type TypeFilter = 'all' | 'evergreen' | 'seasonal' | 'corporate' | 'remarketing';
-export type StatusFilter = 'all' | 'active' | 'planned' | 'in-production' | 'paused' | 'completed';
+export type StatusFilter = 'all' | 'active' | 'planned' | 'in-production' | 'paused';
 export type QuarterFilter = 'all' | 'q1' | 'q2' | 'q3' | 'q4';
 
 export default function Home() {

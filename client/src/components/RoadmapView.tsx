@@ -31,7 +31,6 @@ function getStatusColor(status: Campaign['status']): string {
     case 'in-production': return '#C8813A';
     case 'planned': return '#5B8DB8';
     case 'paused': return '#9B8EC4';
-    case 'completed': return '#9CA3AF';
     default: return '#5B8DB8';
   }
 }
@@ -42,7 +41,6 @@ function getStatusLabel(status: Campaign['status']): string {
     case 'in-production': return 'In Production';
     case 'planned': return 'Planned';
     case 'paused': return 'Paused';
-    case 'completed': return 'Completed';
     default: return status;
   }
 }
@@ -173,7 +171,7 @@ function CampaignBarCell({ campaign, monthIndex, colCount, onClick, isMonthly }:
         <div className="text-xs space-y-1" style={{ color: '#A8DDE9' }}>
           <div>{campaign.startDate} → {campaign.endDate}</div>
           <div>{campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
-          <div>Budget: {campaign.monthlyBudget}</div>
+          <div>Budget range: {campaign.monthlyBudget}</div>
           {campaign.benchmark.outboundCTR && (
             <div>Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
           )}
@@ -465,7 +463,7 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                             <div className="text-xs space-y-1" style={{ color: '#A8DDE9' }}>
                               <div>{campaign.startDate} → {campaign.endDate}</div>
                               <div>{campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
-                              <div>Budget: {campaign.monthlyBudget}</div>
+                              <div>Budget range: {campaign.monthlyBudget}</div>
                               {campaign.benchmark.outboundCTR && (
                                 <div>Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
                               )}
@@ -499,10 +497,10 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
           </div>
           <div className="grid grid-cols-4">
             {[
-              { q: 'Q1 2026', budget: 'CAD $3,600–4,500', focus: "Valentine's + Evergreen", roas: '48x peak', color: '#EEF9FC', border: '#C8813A' },
-              { q: 'Q2 2026', budget: 'CAD $3,200–4,200', focus: "Easter + Mother's Day + Grad", roas: '8–15x', color: '#E8F8F2', border: '#4CAF82' },
-              { q: 'Q3 2026', budget: 'CAD $2,800–3,800', focus: "Wedding + Back-to-School + TG", roas: '5–9x', color: '#EEF9FC', border: '#5B8DB8' },
-              { q: 'Q4 2026', budget: 'CAD $4,500–6,000', focus: "Halloween + BFCM + Holiday", roas: '15–22x', color: '#FDF3E8', border: '#E07B39' },
+              { q: 'Q1 2026', budget: '~28% of annual budget', focus: "Valentine's + Evergreen", roas: '48x peak', color: '#EEF9FC', border: '#C8813A' },
+              { q: 'Q2 2026', budget: '~25% of annual budget', focus: "Easter + Mother's Day + Grad", roas: '8–15x', color: '#E8F8F2', border: '#4CAF82' },
+              { q: 'Q3 2026', budget: '~22% of annual budget', focus: "Wedding + Back-to-School + TG", roas: '5–9x', color: '#EEF9FC', border: '#5B8DB8' },
+              { q: 'Q4 2026', budget: '~35% of annual budget', focus: "Halloween + BFCM + Holiday", roas: '15–22x', color: '#FDF3E8', border: '#E07B39' },
             ].map((item, i) => (
               <div
                 key={item.q}

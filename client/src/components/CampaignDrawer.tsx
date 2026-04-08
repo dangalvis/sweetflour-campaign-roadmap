@@ -259,7 +259,7 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                 <div className="grid grid-cols-2 gap-3">
                   {campaign.monthlyBudget && (
                     <MetricCard
-                      label="Monthly Budget"
+                      label="Monthly Budget Range"
                       value={campaign.monthlyBudget}
                       color={BRAND.brown}
                     />
@@ -281,8 +281,9 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                   )}
                   {campaign.benchmark.cpm && (
                     <MetricCard
-                      label="CPM Target"
-                      value={`≤CAD $${campaign.benchmark.cpm}`}
+                      label="CPM Efficiency Target"
+                      value={campaign.benchmark.cpm <= 16 ? 'Efficient' : campaign.benchmark.cpm <= 20 ? 'Moderate' : 'High Season'}
+                      sub={campaign.benchmark.cpm <= 16 ? 'Below avg — good' : campaign.benchmark.cpm <= 20 ? 'Near avg' : 'Seasonal spike expected'}
                       color="#0369A1"
                     />
                   )}

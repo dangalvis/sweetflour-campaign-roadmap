@@ -167,7 +167,7 @@ export default function PerformanceView() {
           <table className="w-full text-sm">
             <thead>
               <tr style={{ background: '#3D1A0A' }}>
-                {['Campaign', 'Type', 'Budget/Day', 'Cost', 'CTR', 'Conversions', 'Conv. Value', 'ROAS', 'Status'].map(h => (
+                {['Campaign', 'Type', 'Budget Share', 'CTR', 'Conversions', 'ROAS', 'Status'].map(h => (
                   <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-white uppercase tracking-wider">{h}</th>
                 ))}
               </tr>
@@ -179,11 +179,16 @@ export default function PerformanceView() {
                     <div className="truncate" title={c.name}>{c.name}</div>
                   </td>
                   <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>{c.type}</td>
-                  <td className="px-4 py-3 text-xs font-medium" style={{ color: '#3D1A0A' }}>{c.budget}</td>
-                  <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>CA${c.cost.toFixed(2)}</td>
+                  <td className="px-4 py-3 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: '#E4F5F9', minWidth: 40 }}>
+                        <div className="h-full rounded-full" style={{ width: `${c.budgetShare}%`, background: '#A8DDE9' }} />
+                      </div>
+                      <span className="text-xs font-semibold" style={{ color: '#3D1A0A' }}>{c.budgetShare}%</span>
+                    </div>
+                  </td>
                   <td className="px-4 py-3 text-xs font-medium" style={{ color: c.ctr >= 1.0 ? '#059669' : '#D97706' }}>{c.ctr.toFixed(2)}%</td>
                   <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>{c.conversions.toFixed(1)}</td>
-                  <td className="px-4 py-3 text-xs font-medium" style={{ color: '#3D1A0A' }}>CA${c.convValue.toFixed(2)}</td>
                   <td className="px-4 py-3 text-xs font-bold" style={{ color: c.roas >= 4 ? '#059669' : '#D97706' }}>{c.roas.toFixed(2)}x</td>
                   <td className="px-4 py-3">
                     <span
@@ -202,9 +207,9 @@ export default function PerformanceView() {
           </table>
           <div className="px-4 py-3 border-t" style={{ borderColor: '#E4F5F9', background: '#FBF7F2' }}>
             <div className="flex items-center gap-2 text-xs" style={{ color: '#6B5744' }}>
-              <span className="font-semibold" style={{ color: '#D97706' }}>⚠️ Key Finding:</span>
-              3 of 5 campaigns are "Limited by Budget" — increasing daily budgets on Cookie Cakes ($4/day) and Demand Gen ($0.50/day) could unlock significant additional revenue.
-              Brand Search campaign shows exceptional 22.2x ROAS at $8.50/day — this is severely underfunded.
+              <span className="font-semibold" style={{ color: '#D97706' }}>Key Finding:</span>
+              3 of 5 campaigns are limited by budget — reallocating budget share toward Cookie Cakes and Demand Gen could unlock additional conversion volume.
+              Brand Search shows exceptional intent-level CTR (27.7%) and assists all other campaigns — currently under-weighted in budget allocation.
             </div>
           </div>
         </div>
@@ -228,10 +233,10 @@ export default function PerformanceView() {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: 'Results', value: c.results, unit: ' purchases' },
+                  { label: 'Purchases', value: String(c.results), unit: '' },
                   { label: 'Reach', value: c.reach.toLocaleString(), unit: '' },
-                  { label: 'Spend', value: `$${c.spend.toFixed(2)}`, unit: '' },
-                  { label: 'Cost/Result', value: `$${c.costPerResult.toFixed(2)}`, unit: '' },
+                  { label: 'Budget Share', value: `${c.budgetShare}%`, unit: '' },
+                  { label: 'Purchase ROAS', value: `${c.roas.toFixed(2)}x`, unit: '' },
                 ].map(item => (
                   <div key={item.label} className="rounded-lg p-2.5" style={{ background: '#FBF7F2' }}>
                     <div className="text-xs mb-0.5" style={{ color: '#6B7280' }}>{item.label}</div>
@@ -240,10 +245,15 @@ export default function PerformanceView() {
                 ))}
               </div>
               <div className="mt-3 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#E4F5F9' }}>
-                <span className="text-xs" style={{ color: '#6B7280' }}>Purchase ROAS</span>
-                <span className="text-lg font-bold" style={{ color: c.roas >= 4 ? '#059669' : '#D97706', fontFamily: "'Playfair Display', serif" }}>
-                  {c.roas.toFixed(2)}x
-                </span>
+                <span className="text-xs" style={{ color: '#6B7280' }}>Budget allocation of Meta total</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-20 h-1.5 rounded-full overflow-hidden" style={{ background: '#E4F5F9' }}>
+                    <div className="h-full rounded-full" style={{ width: `${c.budgetShare}%`, background: c.roas >= 4 ? '#10B981' : '#F59E0B' }} />
+                  </div>
+                  <span className="text-sm font-bold" style={{ color: c.roas >= 4 ? '#059669' : '#D97706', fontFamily: "'Playfair Display', serif" }}>
+                    {c.budgetShare}%
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}

@@ -115,9 +115,9 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
             trend="Excellent"
           />
           <KPICard
-            label="Avg CPM"
-            value="CAD $16.36"
-            sub="Q4 spike to $23 is seasonal"
+            label="Budget Efficiency"
+            value="Top 40%"
+            sub="PMax Cookies: 40% of Google budget at 5.2x ROAS"
             icon={<DollarSign size={20} />}
             color="#0369A1"
           />
@@ -192,7 +192,7 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
           <InsightCard
             type="success"
             title="Valentine's Day = Highest ROAS Window"
-            body="2025 Valentine's achieved 48x ROAS and 1.74% Outbound CTR — the single best performing period in the account. Budget allocation should be 20-25% of monthly spend."
+            body="2025 Valentine's achieved 48x ROAS and 1.74% Outbound CTR — the single best performing period in the account. Recommend 20–25% of Q1 budget allocation."
             action="Launch Jan 15, 2027 — production starts Nov 2026"
           />
           <InsightCard
@@ -204,7 +204,7 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
           <InsightCard
             type="warning"
             title="Apr–Jun 2025 Fatigue Window Detected"
-            body="Outbound CTR dropped below 1.0% benchmark (0.81–0.90%) during Apr–Jun 2025 while spend held steady. Creative refresh needed for Q2 2026."
+            body="Outbound CTR dropped below 1.0% benchmark (0.81–0.90%) during Apr–Jun 2025 while budget allocation remained unchanged. Creative refresh is the primary lever for Q2 2026."
             action="Produce new Q2 creative by March 2026"
           />
           <InsightCard
@@ -235,7 +235,7 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
           <table className="w-full">
             <thead>
               <tr style={{ background: '#3D1A0A' }}>
-                {['Campaign', 'Launch Date', 'Channel', 'Budget', 'CTR Target', 'ROAS Target', 'Priority'].map(h => (
+                {['Campaign', 'Launch Date', 'Channel', 'Monthly Budget Range', 'CTR Target', 'ROAS Target', 'Priority'].map(h => (
                   <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-white uppercase tracking-wider">{h}</th>
                 ))}
               </tr>
@@ -264,6 +264,7 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
                     {c.channel === 'both' ? 'Meta + Google' : c.channel === 'meta' ? 'Meta' : 'Google'}
                   </td>
                   <td className="px-4 py-3 text-sm font-medium" style={{ color: '#3D1A0A' }}>{c.monthlyBudget || '—'}</td>
+                  {/* monthlyBudget shows recommended range, not actual spend */}
                   <td className="px-4 py-3 text-sm" style={{ color: '#059669' }}>
                     {c.benchmark.outboundCTR ? `≥${c.benchmark.outboundCTR}%` : '—'}
                   </td>
