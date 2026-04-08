@@ -300,39 +300,8 @@ export const campaigns: Campaign[] = [
     year: 2026,
     dataInsight: 'Apr 1–7: 7 purchases | ROAS 2.26x | Reach 8,420 | 78% of Meta budget allocation — Cookies prospecting, creative refresh recommended',
   },
-  {
-    id: 'ev-meta-seasonal-promos',
-    name: 'Meta | Conversions | Seasonal Promos',
-    type: 'evergreen',
-    status: 'active',
-    priority: 'medium',
-    channel: 'meta',
-    startDate: '2026-01-01',
-    endDate: '2026-12-31',
-    products: ['all'],
-    productLabels: ['Seasonal Products', 'Gift Boxes', 'Cupcakes', 'Cookies'],
-    platforms: ['Meta (Facebook + Instagram)'],
-    goal: 'Activate seasonal and promotional campaigns — Valentine\'s, Easter, Mother\'s Day, Holiday, etc.',
-    targetAudience: 'GTA + Canada women 25–54, gift-givers, seasonal shoppers',
-    location: 'GTA + Canada',
-    adCopy: 'Seasonal copy per campaign — see individual seasonal campaign entries below',
-    creativeIdeas: 'Seasonal creative per occasion — themed product shots, occasion-specific messaging',
-    assets: ['Seasonal creative per occasion', 'Themed product photography', 'Occasion-specific copy'],
-    productionTasks: [
-      { id: 'meta-sp-1', task: 'Plan Q2 seasonal creative calendar', owner: 'design', dueWeeks: 2, status: 'pending' },
-      { id: 'meta-sp-2', task: 'Produce Mother\'s Day creative assets', owner: 'production', dueWeeks: 3, status: 'pending' },
-    ],
-    benchmark: { outboundCTR: 1.13, roas: 2.49, cpm: 16.36, frequency: 1.62, budget: 'CA$23.58 (Apr 1–7)' },
-    monthlyBudget: 'Variable — per seasonal campaign',
-    notes: 'This campaign activates seasonal promotions. ROAS 2.49x in Apr 1–7. Seasonal campaigns historically outperform evergreen — Valentine\'s 48x ROAS, Holiday 21x ROAS.',
-    seasonalColor: '#A8DDE9',
-    emoji: '',
-    quarter: 1,
-    month: 1,
-    endMonth: 12,
-    year: 2026,
-    dataInsight: 'Apr 1–7: 1 purchase | ROAS 2.49x | Cupcakes remarketing — low volume, audience building phase',
-  },
+  // Meta | Conversions | Seasonal Promos is the container campaign used internally for seasonal activations.
+  // It is intentionally excluded from the roadmap display — each seasonal campaign is tracked individually below.
   // ─────────────────────────────────────────────
   // Q1 — JAN / FEB / MAR
   // ─────────────────────────────────────────────
@@ -409,7 +378,7 @@ export const campaigns: Campaign[] = [
   {
     id: 'q1-employee-appreciation',
     name: 'Employee Appreciation Day 2026',
-    type: 'corporate',
+    type: 'seasonal',
     status: 'planned',
     priority: 'medium',
     channel: 'both',
@@ -446,7 +415,7 @@ export const campaigns: Campaign[] = [
   {
     id: 'q2-admin-day',
     name: 'Admin Pro Gifting — Admin Day',
-    type: 'corporate',
+    type: 'seasonal',
     status: 'active',
     priority: 'medium',
     channel: 'both',
