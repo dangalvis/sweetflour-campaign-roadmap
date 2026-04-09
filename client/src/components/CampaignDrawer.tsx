@@ -3,7 +3,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  X, Calendar, Target, DollarSign, Users, MapPin,
+  X, Calendar, Target, Users, MapPin,
   Lightbulb, CheckSquare, BarChart2, TrendingUp, AlertCircle,
   ShoppingBag, Palette, Circle, ArrowRight
 } from "lucide-react";
@@ -254,16 +254,9 @@ export default function CampaignDrawer({ campaign, open, onClose }: CampaignDraw
                 </div>
               </Section>
 
-              {/* Budget & Benchmarks */}
-              <Section title="Budget & Performance Targets" icon={<DollarSign size={16} />}>
+              {/* Benchmarks */}
+              <Section title="Performance Targets" icon={<BarChart2 size={16} />}>
                 <div className="grid grid-cols-2 gap-3">
-                  {campaign.monthlyBudget && (
-                    <MetricCard
-                      label="Monthly Budget Range"
-                      value={campaign.monthlyBudget}
-                      color={BRAND.brown}
-                    />
-                  )}
                   {campaign.benchmark.outboundCTR && (
                     <MetricCard
                       label="Outbound CTR Target"

@@ -171,7 +171,6 @@ function CampaignBarCell({ campaign, monthIndex, colCount, onClick, isMonthly }:
         <div className="text-xs space-y-1" style={{ color: '#A8DDE9' }}>
           <div>{campaign.startDate} → {campaign.endDate}</div>
           <div>{campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
-          <div>Budget range: {campaign.monthlyBudget}</div>
           {campaign.benchmark.outboundCTR && (
             <div>Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
           )}
@@ -502,8 +501,7 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
                             <div className="text-xs space-y-1" style={{ color: '#A8DDE9' }}>
                               <div>{campaign.startDate} → {campaign.endDate}</div>
                               <div>{campaign.goal.substring(0, 80)}{campaign.goal.length > 80 ? '...' : ''}</div>
-                              <div>Budget range: {campaign.monthlyBudget}</div>
-                              {campaign.benchmark.outboundCTR && (
+                                {campaign.benchmark.outboundCTR && (
                                 <div>Outbound CTR target: ≥{campaign.benchmark.outboundCTR}%</div>
                               )}
                               {campaign.benchmark.roas && (

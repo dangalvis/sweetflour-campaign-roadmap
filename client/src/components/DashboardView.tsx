@@ -2,7 +2,7 @@
 // Design: Warm Artisan Editorial
 
 import { motion } from "framer-motion";
-import { TrendingUp, Target, DollarSign, Zap, AlertTriangle, CheckCircle, Clock } from "lucide-react";
+import { TrendingUp, Target, Zap, AlertTriangle, CheckCircle, Clock } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from "recharts";
 import { allCampaigns, benchmarks, type Campaign } from "@/lib/campaignData";
 
@@ -117,8 +117,8 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
           <KPICard
             label="Budget Efficiency"
             value="Top 40%"
-            sub="PMax Cookies: 40% of Google budget at 5.2x ROAS"
-            icon={<DollarSign size={20} />}
+            sub="PMax Cookies leads Google allocation at 5.2x ROAS"
+            icon={<Zap size={20} />}
             color="#0369A1"
           />
           <KPICard
@@ -235,7 +235,7 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
           <table className="w-full">
             <thead>
               <tr style={{ background: '#3D1A0A' }}>
-                {['Campaign', 'Launch Date', 'Channel', 'Monthly Budget Range', 'CTR Target', 'ROAS Target', 'Priority'].map(h => (
+                {['Campaign', 'Launch Date', 'Channel', 'CTR Target', 'ROAS Target', 'Priority'].map(h => (
                   <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-white uppercase tracking-wider">{h}</th>
                 ))}
               </tr>
@@ -263,8 +263,6 @@ export default function DashboardView({ onCampaignClick }: DashboardViewProps) {
                   <td className="px-4 py-3 text-xs" style={{ color: '#6B5744' }}>
                     {c.channel === 'both' ? 'Meta + Google' : c.channel === 'meta' ? 'Meta' : 'Google'}
                   </td>
-                  <td className="px-4 py-3 text-sm font-medium" style={{ color: '#3D1A0A' }}>{c.monthlyBudget || '—'}</td>
-                  {/* monthlyBudget shows recommended range, not actual spend */}
                   <td className="px-4 py-3 text-sm" style={{ color: '#059669' }}>
                     {c.benchmark.outboundCTR ? `≥${c.benchmark.outboundCTR}%` : '—'}
                   </td>
