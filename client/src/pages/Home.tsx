@@ -119,13 +119,42 @@ export default function Home() {
                 <DashboardView onCampaignClick={openCampaign} />
               )}
               {view === 'production' && (
-                <ProductionView
-                  campaigns={allCampaigns}
-                  onCampaignClick={openCampaign}
-                />
+                <div className="relative h-full">
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm">
+                    <div className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-card px-12 py-10 shadow-xl text-center max-w-sm">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-amber-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground">Production Tracker</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">This section is currently in progress and will be available soon.</p>
+                      </div>
+                      <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700">Coming Soon</span>
+                    </div>
+                  </div>
+                  <div className="pointer-events-none opacity-20 h-full overflow-auto">
+                    <ProductionView campaigns={allCampaigns} onCampaignClick={openCampaign} />
+                  </div>
+                </div>
               )}
               {view === 'performance' && (
-                <PerformanceView />
+                <div className="relative h-full">
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm">
+                    <div className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-card px-12 py-10 shadow-xl text-center max-w-sm">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground">Performance Data</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">Benchmarks and insights are being prepared and will be available soon.</p>
+                      </div>
+                      <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">Coming Soon</span>
+                    </div>
+                  </div>
+                  <div className="pointer-events-none opacity-20 h-full overflow-auto">
+                    <PerformanceView />
+                  </div>
+                </div>
               )}
             </motion.div>
           </AnimatePresence>

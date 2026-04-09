@@ -1,7 +1,7 @@
 // RoadmapView — Gantt-style campaign timeline
 // Design: Warm Artisan Editorial
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronRight, Info, RefreshCw, Building2, ShoppingBag, Heart, Egg, Star, GraduationCap, Flower2, Sun, Cake, Leaf, Gift, ShoppingCart, Zap, Calendar } from "lucide-react";
 import type { Campaign } from "@/lib/campaignData";
@@ -188,12 +188,14 @@ function CampaignBarCell({ campaign, monthIndex, colCount, onClick, isMonthly }:
 }
 
 export default function RoadmapView({ campaigns, timeView, onCampaignClick }: RoadmapViewProps) {
-  const [collapsedGroups, setCollapsedGroups] = useState<Set<GroupKey>>(new Set());
+   const [collapsedGroups, setCollapsedGroups] = useState<Set<GroupKey>>(new Set());
+  const [cursorX, setCursorX] = useState<number | null>(null);
+  const [cursorLabel, setCursorLabel] = useState<string>('');
+  const tableRef = useRef<HTMLDivElement>(null);
   const groups = groupCampaigns(campaigns);
   const isMonthly = timeView === 'monthly';
   const colCount = isMonthly ? 12 : 4;
   const headers = isMonthly ? MONTHS : QUARTERS.map(q => q.label);
-
   const toggleGroup = (key: GroupKey) => {
     setCollapsedGroups(prev => {
       const next = new Set(prev);
@@ -202,10 +204,25 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
       return next;
     });
   };
-
   const COL_WIDTH = isMonthly ? 88 : 200;
   const LABEL_WIDTH = 230;
   const totalWidth = LABEL_WIDTH + colCount * COL_WIDTH;
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!tableRef.current) return;
+    const rect = tableRef.current.getBoundingClientRect();
+    const scrollLeft = tableRef.current.scrollLeft;
+    const x = e.clientX - rect.left + scrollLeft;
+    if (x < LABEL_WIDTH) { setCursorX(null); return; }
+    const colIdx = Math.floor((x - LABEL_WIDTH) / COL_WIDTH);
+    if (colIdx < 0 || colIdx >= colCount) { setCursorX(null); return; }
+    setCursorX(x);
+    setCursorLabel(headers[colIdx]);
+  }, [LABEL_WIDTH, COL_WIDTH, colCount, headers]);
+
+  const handleMouseLeave = useCallback(() => {
+    setCursorX(null);
+  }, []);;
 
   return (
     <div className="p-6 min-h-full" style={{ background: '#F8FBFC' }}>
@@ -231,9 +248,31 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
 
       {/* Timeline table */}
       <div
-        className="rounded-xl border overflow-x-auto"
+        ref={tableRef}
+        className="rounded-xl border overflow-x-auto relative"
         style={{ borderColor: '#E4F5F9', background: 'white' }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
       >
+        {/* Vertical cursor line */}
+        {cursorX !== null && (
+          <div
+            className="absolute top-0 bottom-0 pointer-events-none z-30"
+            style={{
+              left: cursorX,
+              width: 1,
+              background: 'rgba(200,129,58,0.55)',
+              boxShadow: '0 0 6px rgba(200,129,58,0.3)',
+            }}
+          >
+            <div
+              className="absolute -top-0 left-1 text-xs font-semibold px-1.5 py-0.5 rounded whitespace-nowrap"
+              style={{ background: '#C8813A', color: 'white', fontSize: 10, marginTop: 2 }}
+            >
+              {cursorLabel}
+            </div>
+          </div>
+        )}
         <div style={{ minWidth: totalWidth }}>
 
           {/* Header row — months/quarters */}
@@ -270,8 +309,8 @@ export default function RoadmapView({ campaigns, timeView, onCampaignClick }: Ro
           {/* Quarter sub-headers for monthly view */}
           {isMonthly && (
             <div
-              className="flex border-b"
-              style={{ borderColor: '#E4F5F9', background: '#EEF9FC' }}
+              className="flex border-b sticky z-20"
+              style={{ borderColor: '#E4F5F9', background: '#EEF9FC', top: 41 }}
             >
               <div
                 className="flex-shrink-0"
